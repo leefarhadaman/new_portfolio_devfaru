@@ -29,10 +29,6 @@ const Portfolio = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formStatus, setFormStatus] = useState({ type: '', message: '' });
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const handleMenuItemClick = (tab) => {
-        setActiveTab(tab);
-        setMobileMenuOpen(false); // Close mobile menu when an item is selected
-    };
 
 
 
@@ -213,59 +209,59 @@ const Portfolio = () => {
     return (
         <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white">
             <nav className="fixed w-full bg-gray-900 bg-opacity-90 backdrop-blur-sm z-50 px-6 py-4">
-    <div className="container mx-auto flex justify-between items-center">
-        {/* Logo/Name */}
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            {personalInfo.name}
-        </h1>
+                <div className="container mx-auto flex justify-between items-center">
+                    {/* Logo/Name */}
+                    <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                        {personalInfo.name}
+                    </h1>
 
-        {/* Menu for larger screens */}
-        <div className="hidden md:flex gap-6">
-            {['skills', 'experience', 'projects', 'contact'].map((tab) => (
-                <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    aria-label={`Go to ${tab} section`}
-                    className={`capitalize px-4 py-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${activeTab === tab ? 'bg-blue-500 text-white' : 'hover:bg-gray-800'}`}
-                >
-                    {tab}
-                </button>
-            ))}
-        </div>
+                    {/* Menu for larger screens */}
+                    <div className="hidden md:flex gap-6">
+                        {['skills', 'experience', 'projects', 'contact'].map((tab) => (
+                            <button
+                                key={tab}
+                                onClick={() => setActiveTab(tab)}
+                                aria-label={`Go to ${tab} section`}
+                                className={`capitalize px-4 py-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${activeTab === tab ? 'bg-blue-500 text-white' : 'hover:bg-gray-800'}`}
+                            >
+                                {tab}
+                            </button>
+                        ))}
+                    </div>
 
-        {/* Hamburger menu for smaller screens */}
-        <div className="md:hidden flex items-center">
-            <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                aria-label="Open mobile menu"
-                className="text-white"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-        </div>
-    </div>
+                    {/* Hamburger menu for smaller screens */}
+                    <div className="md:hidden flex items-center">
+                        <button
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            aria-label="Open mobile menu"
+                            className="text-white"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
 
-    {/* Mobile Menu */}
-    <div className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'} mt-4 px-6 transition-all duration-300 ease-in-out transform ${mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="flex flex-col gap-4">
-            {['skills', 'experience', 'projects', 'contact'].map((tab) => (
-                <button
-                    key={tab}
-                    onClick={() => {
-                        setActiveTab(tab);
-                        setMobileMenuOpen(false); // Close menu on selection
-                    }}
-                    aria-label={`Go to ${tab} section`}
-                    className={`capitalize px-4 py-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${activeTab === tab ? 'bg-blue-500 text-white' : 'hover:bg-gray-800'}`}
-                >
-                    {tab}
-                </button>
-            ))}
-        </div>
-    </div>
-</nav>
+                {/* Mobile Menu */}
+                <div className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'} mt-4 px-6 transition-all duration-300 ease-in-out transform ${mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+                    <div className="flex flex-col gap-4">
+                        {['skills', 'experience', 'projects', 'contact'].map((tab) => (
+                            <button
+                                key={tab}
+                                onClick={() => {
+                                    setActiveTab(tab);
+                                    setMobileMenuOpen(false); // Close menu on selection
+                                }}
+                                aria-label={`Go to ${tab} section`}
+                                className={`capitalize px-4 py-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${activeTab === tab ? 'bg-blue-500 text-white' : 'hover:bg-gray-800'}`}
+                            >
+                                {tab}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </nav>
 
 
 
@@ -363,42 +359,42 @@ const Portfolio = () => {
                 </section>
 
                 {/* Experience Section with Enhanced UI */}
-<section className={`transition-all duration-500 ${activeTab === 'experience' ? 'block' : 'hidden'}`}>
-    <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-        Work Experience
-    </h2>
-    <div className="relative">
-        {/* Timeline Line */}
-        <div className="absolute left-0 md:left-1/2 h-full w-1 bg-gradient-to-b from-blue-400 to-purple-500 transform -translate-x-1/2"></div>
+                <section className={`transition-all duration-500 ${activeTab === 'experience' ? 'block' : 'hidden'}`}>
+                    <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                        Work Experience
+                    </h2>
+                    <div className="relative">
+                        {/* Timeline Line */}
+                        <div className="absolute left-0 md:left-1/2 h-full w-1 bg-gradient-to-b from-blue-400 to-purple-500 transform -translate-x-1/2"></div>
 
-        <div className="space-y-12">
-            {experience.map((exp, index) => (
-                <div key={index} className={`flex flex-col md:flex-row gap-8 relative ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                    {/* Timeline Dot */}
-                    <div className="absolute left-0 md:left-1/2 w-6 h-6 bg-blue-400 rounded-full transform -translate-x-1/2 border-4 border-gray-900"></div>
+                        <div className="space-y-12">
+                            {experience.map((exp, index) => (
+                                <div key={index} className={`flex flex-col md:flex-row gap-8 relative ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                                    {/* Timeline Dot */}
+                                    <div className="absolute left-0 md:left-1/2 w-6 h-6 bg-blue-400 rounded-full transform -translate-x-1/2 border-4 border-gray-900"></div>
 
-                    <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}`}>
-                        <div className="bg-gray-800/80 backdrop-blur-sm p-6 md:p-8 rounded-xl hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-blue-500/20">
-                            <div className="flex items-center gap-3 mb-4">
-                                <FaBriefcase className="text-blue-400 text-2xl" />
-                                <h3 className="text-2xl font-bold text-blue-400">{exp.title}</h3>
-                            </div>
-                            <div className="flex items-center gap-3 mb-3">
-                                <FaBuilding className="text-purple-400" />
-                                <p className="text-xl text-gray-300">{exp.company}</p>
-                            </div>
-                            <div className="flex items-center gap-3 mb-4">
-                                <FaCalendar className="text-green-400" />
-                                <p className="text-gray-400">{exp.duration}</p>
-                            </div>
-                            <p className="text-gray-300 leading-relaxed">{exp.description}</p>
+                                    <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}`}>
+                                        <div className="bg-gray-800/80 backdrop-blur-sm p-6 md:p-8 rounded-xl hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-blue-500/20">
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <FaBriefcase className="text-blue-400 text-2xl" />
+                                                <h3 className="text-2xl font-bold text-blue-400">{exp.title}</h3>
+                                            </div>
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <FaBuilding className="text-purple-400" />
+                                                <p className="text-xl text-gray-300">{exp.company}</p>
+                                            </div>
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <FaCalendar className="text-green-400" />
+                                                <p className="text-gray-400">{exp.duration}</p>
+                                            </div>
+                                            <p className="text-gray-300 leading-relaxed">{exp.description}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
-                </div>
-            ))}
-        </div>
-    </div>
-</section>
+                </section>
 
 
                 {/* Projects Section - Simplified and more responsive */}
@@ -511,8 +507,6 @@ const Portfolio = () => {
                         )}
                     </div>
                 </section>
-                {/* Toast Notification Container */}
-                {/* <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar /> */}
             </main>
 
             {/* Footer */}
