@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaCheckCircle, FaExclamationCircle, FaSpinner, FaPhone, FaReact, FaNode, FaDatabase, FaMobile, FaTools, FaServer, FaRocket, FaAws, FaHtml5, FaCalendar, FaBuilding, FaBriefcase, FaJava } from "react-icons/fa";
-import { SiFlutter, SiFirebase, SiMongodb, SiPostgresql, SiPython, SiPhp, SiGit, SiFigma, SiTailwindcss, SiNetlify, SiTypescript,SiMysql,SiCplusplus} from "react-icons/si";
+import { SiFlutter, SiFirebase, SiMongodb, SiPostgresql, SiPython, SiPhp, SiGit, SiFigma, SiTailwindcss, SiNetlify, SiTypescript, SiMysql, SiCplusplus } from "react-icons/si";
 import { IoLogoJavascript } from "react-icons/io5";
+
 
 const CustomAlert = ({ type, message, onClose }) => {
     const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
@@ -27,6 +28,11 @@ const Portfolio = () => {
     const [activeTab, setActiveTab] = useState('skills');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formStatus, setFormStatus] = useState({ type: '', message: '' });
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const handleMenuItemClick = (tab) => {
+        setActiveTab(tab);
+        setMobileMenuOpen(false); // Close mobile menu when an item is selected
+    };
 
 
 
@@ -40,7 +46,7 @@ const Portfolio = () => {
             const formData = new FormData(event.target);
 
             // Access key stored in environment variable or secure configuration
-            const ACCESS_KEY = process.env.REACT_APP_FORM_ACCESS_KEY;   
+            const ACCESS_KEY = process.env.REACT_APP_FORM_ACCESS_KEY;
 
             const payload = {
                 access_key: ACCESS_KEY,
@@ -110,7 +116,7 @@ const Portfolio = () => {
             duration: "2023 Sep-Dec",
             description: "Developed an eCommerce application with features like product purchasing, payment gateway integration, and Firebase authentication.",
         },
-        
+
         {
             title: "Freelancer",
             company: "Self-employed",
@@ -162,7 +168,7 @@ const Portfolio = () => {
                 { name: "MySQL", icon: <SiMysql className="text-yellow-500" /> },
                 { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-500" /> },
                 { name: "Firebase", icon: <SiFirebase className="text-yellow-500" /> }
-                
+
             ]
         },
         {
@@ -204,52 +210,64 @@ const Portfolio = () => {
         }
     ];
 
-    const onSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-
-        formData.append("access_key", "71b56bed-78db-4d22-95e7-a60595d14373");
-
-        const object = Object.fromEntries(formData);
-        const json = JSON.stringify(object);
-
-        const res = await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            body: json
-        }).then((res) => res.json());
-
-        if (res.success) {
-            console.log("Success", res);
-        }
-    };
-
-
     return (
         <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white">
-            {/* Navbar */}
             <nav className="fixed w-full bg-gray-900 bg-opacity-90 backdrop-blur-sm z-50 px-6 py-4">
-                <div className="container mx-auto flex justify-between items-center">
-                    <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                        {personalInfo.name}
-                    </h1>
-                    <div className="flex gap-6">
-                        {['skills', 'experience', 'projects', 'contact'].map((tab) => (
-                            <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab)}
-                                className={`capitalize px-4 py-2 rounded-lg transition-all ${activeTab === tab ? 'bg-blue-500 text-white' : 'hover:bg-gray-800'
-                                    }`}
-                            >
-                                {tab}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            </nav>
+    <div className="container mx-auto flex justify-between items-center">
+        {/* Logo/Name */}
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            {personalInfo.name}
+        </h1>
+
+        {/* Menu for larger screens */}
+        <div className="hidden md:flex gap-6">
+            {['skills', 'experience', 'projects', 'contact'].map((tab) => (
+                <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    aria-label={`Go to ${tab} section`}
+                    className={`capitalize px-4 py-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${activeTab === tab ? 'bg-blue-500 text-white' : 'hover:bg-gray-800'}`}
+                >
+                    {tab}
+                </button>
+            ))}
+        </div>
+
+        {/* Hamburger menu for smaller screens */}
+        <div className="md:hidden flex items-center">
+            <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Open mobile menu"
+                className="text-white"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    {/* Mobile Menu */}
+    <div className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'} mt-4 px-6 transition-all duration-300 ease-in-out transform ${mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className="flex flex-col gap-4">
+            {['skills', 'experience', 'projects', 'contact'].map((tab) => (
+                <button
+                    key={tab}
+                    onClick={() => {
+                        setActiveTab(tab);
+                        setMobileMenuOpen(false); // Close menu on selection
+                    }}
+                    aria-label={`Go to ${tab} section`}
+                    className={`capitalize px-4 py-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${activeTab === tab ? 'bg-blue-500 text-white' : 'hover:bg-gray-800'}`}
+                >
+                    {tab}
+                </button>
+            ))}
+        </div>
+    </div>
+</nav>
+
+
 
             {/* Enhanced Hero Section */}
             <header className="pt-32 pb-20 px-6 bg-gradient-to-b from-blue-600/20 to-purple-600/20">
@@ -268,8 +286,8 @@ const Portfolio = () => {
                         {/* Left Column: Introduction */}
                         <div className="bg-gray-800/30 backdrop-blur-sm p-6 rounded-xl border border-gray-700/50 shadow-lg">
                             <p className="text-lg text-gray-300 leading-relaxed">
-                                Passionate Software Developer specializing in full-stack and mobile development. 
-                                Building scalable applications with React, Flutter, and Node.js. 
+                                Passionate Software Developer specializing in full-stack and mobile development.
+                                Building scalable applications with React, Flutter, and Node.js.
                                 Let's create something amazing together!
                             </p>
                         </div>
@@ -297,20 +315,20 @@ const Portfolio = () => {
 
                     {/* Social Links */}
                     <div className="flex justify-center gap-6">
-                        <a href={personalInfo.github} 
-                           className="p-3 bg-gray-800/30 rounded-full transform hover:scale-110 transition-all hover:bg-gray-700/50">
+                        <a href={personalInfo.github}
+                            className="p-3 bg-gray-800/30 rounded-full transform hover:scale-110 transition-all hover:bg-gray-700/50">
                             <FaGithub size={24} className="text-gray-300 hover:text-blue-400" />
                         </a>
-                        <a href={personalInfo.linkedin} 
-                           className="p-3 bg-gray-800/30 rounded-full transform hover:scale-110 transition-all hover:bg-gray-700/50">
+                        <a href={personalInfo.linkedin}
+                            className="p-3 bg-gray-800/30 rounded-full transform hover:scale-110 transition-all hover:bg-gray-700/50">
                             <FaLinkedin size={24} className="text-gray-300 hover:text-blue-400" />
                         </a>
-                        <a href={`mailto:${personalInfo.email}`} 
-                           className="p-3 bg-gray-800/30 rounded-full transform hover:scale-110 transition-all hover:bg-gray-700/50">
+                        <a href={`mailto:${personalInfo.email}`}
+                            className="p-3 bg-gray-800/30 rounded-full transform hover:scale-110 transition-all hover:bg-gray-700/50">
                             <FaEnvelope size={24} className="text-gray-300 hover:text-blue-400" />
                         </a>
-                        <a href={`tel:${personalInfo.phone}`} 
-                           className="p-3 bg-gray-800/30 rounded-full transform hover:scale-110 transition-all hover:bg-gray-700/50">
+                        <a href={`tel:${personalInfo.phone}`}
+                            className="p-3 bg-gray-800/30 rounded-full transform hover:scale-110 transition-all hover:bg-gray-700/50">
                             <FaPhone size={24} className="text-gray-300 hover:text-blue-400" />
                         </a>
                     </div>
@@ -345,42 +363,43 @@ const Portfolio = () => {
                 </section>
 
                 {/* Experience Section with Enhanced UI */}
-                <section className={`transition-all duration-500 ${activeTab === 'experience' ? 'block' : 'hidden'}`}>
-                    <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                        Work Experience
-                    </h2>
-                    <div className="relative">
-                        {/* Timeline Line */}
-                        <div className="absolute left-0 md:left-1/2 h-full w-1 bg-gradient-to-b from-blue-400 to-purple-500 transform -translate-x-1/2"></div>
+<section className={`transition-all duration-500 ${activeTab === 'experience' ? 'block' : 'hidden'}`}>
+    <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+        Work Experience
+    </h2>
+    <div className="relative">
+        {/* Timeline Line */}
+        <div className="absolute left-0 md:left-1/2 h-full w-1 bg-gradient-to-b from-blue-400 to-purple-500 transform -translate-x-1/2"></div>
 
-                        <div className="space-y-12">
-                            {experience.map((exp, index) => (
-                                <div key={index} className={`flex flex-col md:flex-row gap-8 relative ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                                    {/* Timeline Dot */}
-                                    <div className="absolute left-0 md:left-1/2 w-6 h-6 bg-blue-400 rounded-full transform -translate-x-1/2 border-4 border-gray-900"></div>
+        <div className="space-y-12">
+            {experience.map((exp, index) => (
+                <div key={index} className={`flex flex-col md:flex-row gap-8 relative ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                    {/* Timeline Dot */}
+                    <div className="absolute left-0 md:left-1/2 w-6 h-6 bg-blue-400 rounded-full transform -translate-x-1/2 border-4 border-gray-900"></div>
 
-                                    <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}`}>
-                                        <div className="bg-gray-800/80 backdrop-blur-sm p-8 rounded-xl hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-blue-500/20">
-                                            <div className="flex items-center gap-3 mb-4">
-                                                <FaBriefcase className="text-blue-400 text-2xl" />
-                                                <h3 className="text-2xl font-bold text-blue-400">{exp.title}</h3>
-                                            </div>
-                                            <div className="flex items-center gap-3 mb-3">
-                                                <FaBuilding className="text-purple-400" />
-                                                <p className="text-xl text-gray-300">{exp.company}</p>
-                                            </div>
-                                            <div className="flex items-center gap-3 mb-4">
-                                                <FaCalendar className="text-green-400" />
-                                                <p className="text-gray-400">{exp.duration}</p>
-                                            </div>
-                                            <p className="text-gray-300 leading-relaxed">{exp.description}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                    <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}`}>
+                        <div className="bg-gray-800/80 backdrop-blur-sm p-6 md:p-8 rounded-xl hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-blue-500/20">
+                            <div className="flex items-center gap-3 mb-4">
+                                <FaBriefcase className="text-blue-400 text-2xl" />
+                                <h3 className="text-2xl font-bold text-blue-400">{exp.title}</h3>
+                            </div>
+                            <div className="flex items-center gap-3 mb-3">
+                                <FaBuilding className="text-purple-400" />
+                                <p className="text-xl text-gray-300">{exp.company}</p>
+                            </div>
+                            <div className="flex items-center gap-3 mb-4">
+                                <FaCalendar className="text-green-400" />
+                                <p className="text-gray-400">{exp.duration}</p>
+                            </div>
+                            <p className="text-gray-300 leading-relaxed">{exp.description}</p>
                         </div>
                     </div>
-                </section>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
 
                 {/* Projects Section - Simplified and more responsive */}
                 <section className={`transition-all duration-500 ${activeTab === 'projects' ? 'block' : 'hidden'}`}>
