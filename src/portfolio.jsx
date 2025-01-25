@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaCheckCircle, FaExclamationCircle, FaSpinner, FaPhone, FaReact, FaNode, FaDatabase, FaMobile, FaTools, FaServer, FaRocket, FaAws, FaHtml5, FaCalendar, FaBuilding, FaBriefcase, FaJava } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaCheckCircle, FaExclamationCircle, FaSpinner, FaPhone, FaReact, FaNode, FaDatabase, FaMobile, FaTools, FaServer, FaRocket, FaAws, FaHtml5, FaCalendar, FaBuilding, FaBriefcase, FaJava ,FaGraduationCap } from "react-icons/fa";
 import { SiFlutter, SiFirebase, SiMongodb, SiPostgresql, SiPython, SiPhp, SiGit, SiFigma, SiTailwindcss, SiNetlify, SiTypescript, SiMysql, SiCplusplus } from "react-icons/si";
 import { IoLogoJavascript } from "react-icons/io5";
 
@@ -29,6 +29,7 @@ const Portfolio = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formStatus, setFormStatus] = useState({ type: '', message: '' });
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [showScrollIndicator, setShowScrollIndicator] = useState(true);
 
 
 
@@ -91,7 +92,29 @@ const Portfolio = () => {
         phone: "+91 8638960613",
         github: "https://github.com/leefarhadaman",
         linkedin: "https://www.linkedin.com/in/farhad-ali-8bb801201/",
+        education :[
+            {
+                degree: "Bachelor of Computer Applications (BCA)",
+                institution: "Assam Don Bosco University",
+                graduationYear: 2024,
+                icon: <FaGraduationCap className="text-blue-400" />
+            },
+            {
+                degree: "Class 12",
+                institution: "Kendriya Vidyalaya NFR Maligaon",
+                graduationYear: 2021,
+                icon: <FaBuilding className="text-green-400" />
+            },
+            {
+                degree: "Class 10",
+                institution: "Brahmaputra Valley English Academy",
+                graduationYear: 2019,
+                icon: <FaBuilding className="text-purple-400" />
+            }
+        ]
     };
+
+   
 
     const experience = [
         {
@@ -217,7 +240,7 @@ const Portfolio = () => {
 
                     {/* Menu for larger screens */}
                     <div className="hidden md:flex gap-6">
-                        {['skills', 'experience', 'projects', 'contact'].map((tab) => (
+                        {['skills', 'experience','education', 'projects', 'contact'].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
@@ -246,12 +269,12 @@ const Portfolio = () => {
                 {/* Mobile Menu */}
                 <div className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'} mt-4 px-6 transition-all duration-300 ease-in-out transform ${mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
                     <div className="flex flex-col gap-4">
-                        {['skills', 'experience', 'projects', 'contact'].map((tab) => (
+                        {['skills', 'experience', 'education', 'projects', 'contact'].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => {
                                     setActiveTab(tab);
-                                    setMobileMenuOpen(false); // Close menu on selection
+                                    setMobileMenuOpen(false);
                                 }}
                                 aria-label={`Go to ${tab} section`}
                                 className={`capitalize px-4 py-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${activeTab === tab ? 'bg-blue-500 text-white' : 'hover:bg-gray-800'}`}
@@ -331,6 +354,28 @@ const Portfolio = () => {
                 </div>
             </header>
 
+            {/* Scroll Indicator */}
+            {showScrollIndicator && (
+                <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 animate-bounce">
+                    <div className="bg-gray-700/50 p-3 rounded-full">
+                        <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            className="h-6 w-6 text-white" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor"
+                        >
+                            <path 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
+                                strokeWidth={2} 
+                                d="M19 13l-7 7-7-7m14-8l-7 7-7-7" 
+                            />
+                        </svg>
+                    </div>
+                </div>
+            )}
+
             {/* Main Content */}
             <main className="container mx-auto px-6 py-16">
                 {/* Skills Section */}
@@ -352,6 +397,34 @@ const Portfolio = () => {
                                             <span className="text-gray-300">{skill.name}</span>
                                         </div>
                                     ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                    {/* Education Section */}
+                <section className={`transition-all duration-500 ${activeTab === 'education' ? 'block' : 'hidden'}`}>
+                    <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                        Education
+                    </h2>
+                    <div className="space-y-8">
+                        {personalInfo.education.map((edu, index) => (
+                            <div 
+                                key={index} 
+                                className="bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-blue-500/20"
+                            >
+                                <div className="flex items-center gap-4 mb-4">
+                                    {edu.icon}
+                                    <h3 className="text-2xl font-bold text-blue-400">{edu.degree}</h3>
+                                </div>
+                                <div className="flex items-center gap-3 mb-3">
+                                    <FaBuilding className="text-purple-400" />
+                                    <p className="text-xl text-gray-300">{edu.institution}</p>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <FaCalendar className="text-green-400" />
+                                    <p className="text-gray-400">Graduation Year: {edu.graduationYear}</p>
                                 </div>
                             </div>
                         ))}
