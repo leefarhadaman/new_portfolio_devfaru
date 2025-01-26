@@ -29,7 +29,7 @@ const Portfolio = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formStatus, setFormStatus] = useState({ type: '', message: '' });
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+    const [showScrollIndicator, setShowScrollIndicator] = useState(false);
 
 
 
