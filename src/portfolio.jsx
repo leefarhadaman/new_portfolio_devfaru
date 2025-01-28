@@ -29,7 +29,6 @@ const Portfolio = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formStatus, setFormStatus] = useState({ type: '', message: '' });
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [showScrollIndicator, setShowScrollIndicator] = useState(false);
 
 
 
@@ -353,28 +352,6 @@ const Portfolio = () => {
                     </div>
                 </div>
             </header>
-
-            {/* Scroll Indicator */}
-            {showScrollIndicator && (
-                <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 animate-bounce">
-                    <div className="bg-gray-700/50 p-3 rounded-full">
-                        <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            className="h-6 w-6 text-white" 
-                            fill="none" 
-                            viewBox="0 0 24 24" 
-                            stroke="currentColor"
-                        >
-                            <path 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round" 
-                                strokeWidth={2} 
-                                d="M19 13l-7 7-7-7m14-8l-7 7-7-7" 
-                            />
-                        </svg>
-                    </div>
-                </div>
-            )}
 
             {/* Main Content */}
             <main className="container mx-auto px-6 py-16">
