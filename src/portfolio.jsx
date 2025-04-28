@@ -51,7 +51,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // Custom Alert Component
 export const CustomAlert = ({ type, message, onClose }) => {
-    const bgColor = type === "success" ? "bg-green-100 border-green-400" : "bg-red-100 border-red-400";
+    const bgColor = type === "success" ? "bg-green border-green-400" : "bg-red-100 border-red-400";
     const Icon = type === "success" ? FaCheckCircle : FaExclamationCircle;
 
     return (
@@ -182,7 +182,7 @@ const MemoryGame = ({ onClose, theme }) => {
         const selectedEmojis = emojis[difficulty];
         const doubledEmojis = [...selectedEmojis, ...selectedEmojis].sort(() => Math.random() - 0.5);
         return doubledEmojis.map((emoji, index) => ({ id: index, emoji, isFlipped: false }));
-      }, [difficulty]);
+    }, [difficulty]);
 
     useEffect(() => {
         setCards(generateCards());
@@ -190,20 +190,20 @@ const MemoryGame = ({ onClose, theme }) => {
 
     useEffect(() => {
         if (gameStarted && timeLeft > 0) {
-          timerRef.current = setInterval(() => {
-            setTimeLeft((prev) => {
-              if (prev <= 1) {
-                clearInterval(timerRef.current);
-                return 0;
-              }
-              return prev - 1;
-            });
-          }, 1000);
+            timerRef.current = setInterval(() => {
+                setTimeLeft((prev) => {
+                    if (prev <= 1) {
+                        clearInterval(timerRef.current);
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
         }
         return () => {
-          if (timerRef.current) clearInterval(timerRef.current);
+            if (timerRef.current) clearInterval(timerRef.current);
         };
-      }, [gameStarted]);
+    }, [gameStarted]);
 
     useEffect(() => {
         if (matched.length > 0 && matched.length === cards.length) {
@@ -310,10 +310,10 @@ const MemoryGame = ({ onClose, theme }) => {
                                     key={level}
                                     onClick={() => setDifficulty(level)}
                                     className={`py-2 px-4 rounded-xl ${difficulty === level
-                                            ? "bg-teal-500 text-white"
-                                            : theme === "dark"
-                                                ? "bg-gray-800 text-gray-300"
-                                                : "bg-gray-200 text-gray-700"
+                                        ? "bg-teal-500 text-white"
+                                        : theme === "dark"
+                                            ? "bg-gray-800 text-gray-300"
+                                            : "bg-gray-200 text-gray-700"
                                         }`}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
@@ -364,10 +364,10 @@ const MemoryGame = ({ onClose, theme }) => {
                                     <motion.div
                                         key={card.id}
                                         className={`p-2 sm:p-4 cursor-pointer flex items-center justify-center text-2xl rounded-2xl ${card.isFlipped || matched.includes(index)
-                                                ? "bg-teal-500"
-                                                : theme === "dark"
-                                                    ? "bg-gray-800"
-                                                    : "bg-gray-200"
+                                            ? "bg-teal-500"
+                                            : theme === "dark"
+                                                ? "bg-gray-800"
+                                                : "bg-gray-200"
                                             }`}
                                         onClick={() => handleCardClick(index)}
                                         whileHover={!card.isFlipped && !matched.includes(index) ? { scale: 1.05 } : {}}
@@ -433,8 +433,8 @@ const MemoryGame = ({ onClose, theme }) => {
                             <motion.button
                                 onClick={onClose}
                                 className={`flex-1 py-2 rounded-2xl transition-all ${theme === "dark"
-                                        ? "bg-gray-800 text-white hover:bg-gray-700"
-                                        : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                                    ? "bg-gray-800 text-white hover:bg-gray-700"
+                                    : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                                     }`}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
@@ -486,12 +486,36 @@ const Portfolio = () => {
         event.preventDefault();
         setIsSubmitting(true);
         setFormStatus({ type: "", message: "" });
+
+        const formData = new FormData(event.target);
+        formData.append("access_key", process.env.REACT_APP_FORM_ACCESS_KEY);
+
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1500));
-            setFormStatus({ type: "success", message: "Message sent! I'll get back to you soon." });
-            event.target.reset();
+            const response = await fetch(process.env.REACT_APP_API_URL, {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                setFormStatus({
+                    type: "success",
+                    message: "Message sent! I'll get back to you soon.",
+                });
+                event.target.reset();
+            } else {
+                setFormStatus({
+                    type: "error",
+                    message: "Failed to send your message. Please try again.",
+                });
+            }
         } catch (error) {
-            setFormStatus({ type: "error", message: "Oops! Something went wrong. Please try again." });
+            console.error("Form submission error:", error);
+            setFormStatus({
+                type: "error",
+                message: "Oops! Something went wrong. Please try again.",
+            });
         } finally {
             setIsSubmitting(false);
             setTimeout(() => setFormStatus({ type: "", message: "" }), 5000);
@@ -1084,7 +1108,7 @@ When I'm not coding, you can find me contributing to open-source projects, writi
             ],
         },
     ];
-    
+
     // Skills Data
     const skills = {
         frontend: [
@@ -1178,8 +1202,8 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                 key={item.id}
                                 onClick={() => (item.id === "timepass" ? setShowGame(true) : setActiveTab(item.id))}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all ${activeTab === item.id
-                                        ? "bg-teal-500 text-white shadow-lg"
-                                        : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                                    ? "bg-teal-500 text-white shadow-lg"
+                                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
                                     }`}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
@@ -1657,8 +1681,8 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                                 key={filter.value}
                                                 onClick={() => setProjectFilter(filter.value)}
                                                 className={`px-4 py-2 rounded-2xl text-sm font-medium transition-all ${projectFilter === filter.value
-                                                        ? "bg-teal-500 text-white"
-                                                        : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                                                    ? "bg-teal-500 text-white"
+                                                    : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                                                     }`}
                                                 whileHover={{ scale: 1.05 }}
                                                 whileTap={{ scale: 0.95 }}
