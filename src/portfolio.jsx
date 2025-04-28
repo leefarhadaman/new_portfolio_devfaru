@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef} from "react";
 import {
     FaGithub,
     FaLinkedin,
@@ -169,286 +169,293 @@ const MemoryGame = ({ onClose, theme }) => {
     const [gameStarted, setGameStarted] = useState(false);
     const [difficulty, setDifficulty] = useState("medium");
     const [moves, setMoves] = useState(0);
-
+  
     const timerRef = useRef(null);
-
+  
     const emojis = {
-        easy: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨"],
-        medium: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨", "🐯", "🦒"],
-        hard: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨", "🐯", "🦒", "🐘", "🦊", "🐹", "🐰"],
+      easy: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨"],
+      medium: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨", "🐯", "🦒"],
+      hard: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨", "🐯", "🦒", "🐘", "🦊", "🐹", "🐰"],
     };
-
-    const generateCards = useCallback(() => {
-        const selectedEmojis = emojis[difficulty];
-        const doubledEmojis = [...selectedEmojis, ...selectedEmojis].sort(() => Math.random() - 0.5);
-        return doubledEmojis.map((emoji, index) => ({ id: index, emoji, isFlipped: false }));
+  
+    const generateCards = () => {
+      const selectedEmojis = emojis[difficulty];
+      const doubledEmojis = [...selectedEmojis, ...selectedEmojis].sort(() => Math.random() - 0.5);
+      return doubledEmojis.map((emoji, index) => ({ id: index, emoji, isFlipped: false }));
+    };
+  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+      setCards(generateCards());
     }, [difficulty]);
-
+  
     useEffect(() => {
-        setCards(generateCards());
-    }, [difficulty, generateCards]);
-
-    useEffect(() => {
-        if (gameStarted && timeLeft > 0) {
-            timerRef.current = setInterval(() => {
-                setTimeLeft((prev) => {
-                    if (prev <= 1) {
-                        clearInterval(timerRef.current);
-                        return 0;
-                    }
-                    return prev - 1;
-                });
-            }, 1000);
-        }
-        return () => {
-            if (timerRef.current) clearInterval(timerRef.current);
-        };
-    }, [gameStarted]);
-
-    useEffect(() => {
-        if (matched.length > 0 && matched.length === cards.length) {
-            clearInterval(timerRef.current);
-        }
-    }, [matched, cards.length]);
-
-    const startGame = () => {
-        setGameStarted(true);
-        setTimeLeft(difficulty === "easy" ? 90 : difficulty === "medium" ? 60 : 45);
-        setScore(0);
-        setMoves(0);
-        setMatched([]);
-        setFlipped([]);
-        setCards(generateCards());
-    };
-
-    const handleCardClick = (index) => {
-        if (!gameStarted) return;
-        if (flipped.length < 2 && !flipped.includes(index) && !matched.includes(index)) {
-            const newFlipped = [...flipped, index];
-            setFlipped(newFlipped);
-            const newCards = cards.map((card, i) =>
-                i === index ? { ...card, isFlipped: true } : card
-            );
-            setCards(newCards);
-            if (newFlipped.length === 2) {
-                setMoves(moves + 1);
-                const [first, second] = newFlipped;
-                if (cards[first].emoji === cards[second].emoji) {
-                    setMatched([...matched, first, second]);
-                    setScore(score + (difficulty === "easy" ? 5 : difficulty === "medium" ? 10 : 15));
-                    setFlipped([]);
-                } else {
-                    setTimeout(() => {
-                        setFlipped([]);
-                        setCards((prev) =>
-                            prev.map((card, i) =>
-                                !matched.includes(i) && (i === first || i === second)
-                                    ? { ...card, isFlipped: false }
-                                    : card
-                            )
-                        );
-                    }, 1000);
-                }
+      if (gameStarted && timeLeft > 0) {
+        timerRef.current = setInterval(() => {
+          setTimeLeft((prev) => {
+            if (prev <= 1) {
+              clearInterval(timerRef.current);
+              return 0;
             }
-        }
-    };
-
-    const restartGame = () => {
+            return prev - 1;
+          });
+        }, 1000);
+      }
+      return () => {
         if (timerRef.current) clearInterval(timerRef.current);
-        setGameStarted(false);
-        setCards(generateCards());
-        setFlipped([]);
-        setMatched([]);
-        setScore(0);
-        setMoves(0);
-        setTimeLeft(difficulty === "easy" ? 90 : difficulty === "medium" ? 60 : 45);
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [gameStarted]);
+  
+    useEffect(() => {
+      if (matched.length > 0 && matched.length === cards.length) {
+        clearInterval(timerRef.current);
+      }
+    }, [matched, cards.length]);
+  
+    const startGame = () => {
+      setGameStarted(true);
+      setTimeLeft(difficulty === "easy" ? 90 : difficulty === "medium" ? 60 : 45);
+      setScore(0);
+      setMoves(0);
+      setMatched([]);
+      setFlipped([]);
+      setCards(generateCards());
     };
-
+  
+    const handleCardClick = (index) => {
+      if (!gameStarted) return;
+      if (flipped.length < 2 && !flipped.includes(index) && !matched.includes(index)) {
+        const newFlipped = [...flipped, index];
+        setFlipped(newFlipped);
+        const newCards = cards.map((card, i) =>
+          i === index ? { ...card, isFlipped: true } : card
+        );
+        setCards(newCards);
+        if (newFlipped.length === 2) {
+          setMoves(moves + 1);
+          const [first, second] = newFlipped;
+          if (cards[first].emoji === cards[second].emoji) {
+            setMatched([...matched, first, second]);
+            setScore(score + (difficulty === "easy" ? 5 : difficulty === "medium" ? 10 : 15));
+            setFlipped([]);
+          } else {
+            setTimeout(() => {
+              setFlipped([]);
+              setCards((prev) =>
+                prev.map((card, i) =>
+                  !matched.includes(i) && (i === first || i === second)
+                    ? { ...card, isFlipped: false }
+                    : card
+                )
+              );
+            }, 1000);
+          }
+        }
+      }
+    };
+  
+    const restartGame = () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      setGameStarted(false);
+      setCards(generateCards());
+      setFlipped([]);
+      setMatched([]);
+      setScore(0);
+      setMoves(0);
+      setTimeLeft(difficulty === "easy" ? 90 : difficulty === "medium" ? 60 : 45);
+    };
+  
     const getGridCols = () => {
-        if (difficulty === "easy") return "grid-cols-3";
-        if (difficulty === "medium") return "grid-cols-4";
-        return "grid-cols-4 sm:grid-cols-6";
+      if (difficulty === "easy") return "grid-cols-3";
+      if (difficulty === "medium") return "grid-cols-4";
+      return "grid-cols-4 sm:grid-cols-6";
     };
-
+  
     return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
+        onClick={onClose}
+      >
         <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
-            onClick={onClose}
+          initial={{ scale: 0.8, y: 50 }}
+          animate={{ scale: 1, y: 0 }}
+          exit={{ scale: 0.8, y: 50 }}
+          className={`${
+            theme === "dark" ? "bg-gray-900" : "bg-white"
+          } bg-opacity-90 backdrop-blur-md rounded-3xl p-6 max-w-md w-full shadow-2xl`}
+          onClick={(e) => e.stopPropagation()}
         >
-            <motion.div
-                initial={{ scale: 0.8, y: 50 }}
-                animate={{ scale: 1, y: 0 }}
-                exit={{ scale: 0.8, y: 50 }}
-                className={`${theme === "dark" ? "bg-gray-900" : "bg-white"
-                    } bg-opacity-90 backdrop-blur-md rounded-3xl p-6 max-w-md w-full shadow-2xl`}
-                onClick={(e) => e.stopPropagation()}
+          <div className="flex justify-between items-center mb-4">
+            <h3 className={`text-xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+              Memory Game
+            </h3>
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={onClose}
+              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
             >
-                <div className="flex justify-between items-center mb-4">
-                    <h3 className={`text-xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                        Memory Game
-                    </h3>
-                    <motion.button
-                        whileHover={{ scale: 1.1, rotate: 90 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={onClose}
-                        className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-                    >
-                        ×
-                    </motion.button>
+              ×
+            </motion.button>
+          </div>
+          {!gameStarted ? (
+            <div className="mb-6">
+              <h4 className={`font-medium mb-4 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+                Select Difficulty
+              </h4>
+              <div className="grid grid-cols-3 gap-3 mb-6">
+                {["easy", "medium", "hard"].map((level) => (
+                  <motion.button
+                    key={level}
+                    onClick={() => setDifficulty(level)}
+                    className={`py-2 px-4 rounded-xl ${
+                      difficulty === level
+                        ? "bg-teal-500 text-white"
+                        : theme === "dark"
+                        ? "bg-gray-800 text-gray-300"
+                        : "bg-gray-200 text-gray-700"
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {level.charAt(0).toUpperCase() + level.slice(1)}
+                  </motion.button>
+                ))}
+              </div>
+              <motion.button
+                onClick={startGame}
+                className="w-full py-3 bg-teal-600 text-white rounded-2xl hover:bg-teal-700 transition-all flex items-center justify-center"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Start Game
+              </motion.button>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                <div className={`p-2 rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
+                  <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Score</p>
+                  <p className={`font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>{score}</p>
                 </div>
-                {!gameStarted ? (
-                    <div className="mb-6">
-                        <h4 className={`font-medium mb-4 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
-                            Select Difficulty
-                        </h4>
-                        <div className="grid grid-cols-3 gap-3 mb-6">
-                            {["easy", "medium", "hard"].map((level) => (
-                                <motion.button
-                                    key={level}
-                                    onClick={() => setDifficulty(level)}
-                                    className={`py-2 px-4 rounded-xl ${difficulty === level
-                                        ? "bg-teal-500 text-white"
-                                        : theme === "dark"
-                                            ? "bg-gray-800 text-gray-300"
-                                            : "bg-gray-200 text-gray-700"
-                                        }`}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                >
-                                    {level.charAt(0).toUpperCase() + level.slice(1)}
-                                </motion.button>
-                            ))}
-                        </div>
-                        <motion.button
-                            onClick={startGame}
-                            className="w-full py-3 bg-teal-600 text-white rounded-2xl hover:bg-teal-700 transition-all flex items-center justify-center"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            Start Game
-                        </motion.button>
+                <div className={`p-2 rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
+                  <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Time</p>
+                  <p
+                    className={`font-bold ${
+                      timeLeft < 10 ? "text-red-500" : theme === "dark" ? "text-teal-400" : "text-teal-600"
+                    }`}
+                  >
+                    {timeLeft}s
+                  </p>
+                </div>
+                <div className={`p-2 rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
+                  <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Moves</p>
+                  <p className={`font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>{moves}</p>
+                </div>
+                <div className={`p-2 rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
+                  <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Pairs</p>
+                  <p className={`font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
+                    {matched.length / 2} / {cards.length / 2}
+                  </p>
+                </div>
+              </div>
+              {timeLeft > 0 && matched.length < cards.length ? (
+                <div className={`grid ${getGridCols()} gap-2 mb-4`}>
+                  {cards.map((card, index) => (
+                    <motion.div
+                      key={card.id}
+                      className={`p-2 sm:p-4 cursor-pointer flex items-center justify-center text-2xl rounded-2xl ${
+                        card.isFlipped || matched.includes(index)
+                          ? "bg-teal-500"
+                          : theme === "dark"
+                          ? "bg-gray-800"
+                          : "bg-gray-200"
+                      }`}
+                      onClick={() => handleCardClick(index)}
+                      whileHover={!card.isFlipped && !matched.includes(index) ? { scale: 1.05 } : {}}
+                      whileTap={!card.isFlipped && !matched.includes(index) ? { scale: 0.95 } : {}}
+                      animate={
+                        matched.includes(index)
+                          ? { rotateY: [0, 180, 0], scale: [1, 1.1, 1] }
+                          : card.isFlipped
+                          ? { rotateY: 180 }
+                          : { rotateY: 0 }
+                      }
+                    >
+                      {card.isFlipped || matched.includes(index) ? card.emoji : "?"}
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <div className="mb-6 text-center">
+                  <h4
+                    className={`text-xl font-bold mb-4 ${theme === "dark" ? "text-white" : "text-gray-900"}`}
+                  >
+                    {matched.length === cards.length ? "You Won! 🎉" : "Game Over! ⏱️"}
+                  </h4>
+                  <div className={`p-6 rounded-2xl mb-4 ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Final Score</p>
+                        <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
+                          {score}
+                        </p>
+                      </div>
+                      <div>
+                        <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Time Taken</p>
+                        <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
+                          {difficulty === "easy" ? 90 : difficulty === "medium" ? 60 : 45} - {timeLeft}s
+                        </p>
+                      </div>
+                      <div>
+                        <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Moves</p>
+                        <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
+                          {moves}
+                        </p>
+                      </div>
+                      <div>
+                        <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Pairs Found</p>
+                        <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
+                          {matched.length / 2} / {cards.length / 2}
+                        </p>
+                      </div>
                     </div>
-                ) : (
-                    <>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-                            <div className={`p-2 rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
-                                <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Score</p>
-                                <p className={`font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>{score}</p>
-                            </div>
-                            <div className={`p-2 rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
-                                <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Time</p>
-                                <p
-                                    className={`font-bold ${timeLeft < 10 ? "text-red-500" : theme === "dark" ? "text-teal-400" : "text-teal-600"
-                                        }`}
-                                >
-                                    {timeLeft}s
-                                </p>
-                            </div>
-                            <div className={`p-2 rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
-                                <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Moves</p>
-                                <p className={`font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>{moves}</p>
-                            </div>
-                            <div className={`p-2 rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
-                                <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Pairs</p>
-                                <p className={`font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
-                                    {matched.length / 2} / {cards.length / 2}
-                                </p>
-                            </div>
-                        </div>
-                        {timeLeft > 0 && matched.length < cards.length ? (
-                            <div className={`grid ${getGridCols()} gap-2 mb-4`}>
-                                {cards.map((card, index) => (
-                                    <motion.div
-                                        key={card.id}
-                                        className={`p-2 sm:p-4 cursor-pointer flex items-center justify-center text-2xl rounded-2xl ${card.isFlipped || matched.includes(index)
-                                            ? "bg-teal-500"
-                                            : theme === "dark"
-                                                ? "bg-gray-800"
-                                                : "bg-gray-200"
-                                            }`}
-                                        onClick={() => handleCardClick(index)}
-                                        whileHover={!card.isFlipped && !matched.includes(index) ? { scale: 1.05 } : {}}
-                                        whileTap={!card.isFlipped && !matched.includes(index) ? { scale: 0.95 } : {}}
-                                        animate={
-                                            matched.includes(index)
-                                                ? { rotateY: [0, 180, 0], scale: [1, 1.1, 1] }
-                                                : card.isFlipped
-                                                    ? { rotateY: 180 }
-                                                    : { rotateY: 0 }
-                                        }
-                                    >
-                                        {card.isFlipped || matched.includes(index) ? card.emoji : "?"}
-                                    </motion.div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="mb-6 text-center">
-                                <h4
-                                    className={`text-xl font-bold mb-4 ${theme === "dark" ? "text-white" : "text-gray-900"}`}
-                                >
-                                    {matched.length === cards.length ? "You Won! 🎉" : "Game Over! ⏱️"}
-                                </h4>
-                                <div className={`p-6 rounded-2xl mb-4 ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Final Score</p>
-                                            <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
-                                                {score}
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Time Taken</p>
-                                            <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
-                                                {difficulty === "easy" ? 90 : difficulty === "medium" ? 60 : 45} - {timeLeft}s
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Moves</p>
-                                            <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
-                                                {moves}
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Pairs Found</p>
-                                            <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
-                                                {matched.length / 2} / {cards.length / 2}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                        <div className="flex gap-4">
-                            <motion.button
-                                onClick={restartGame}
-                                className="flex-1 py-2 bg-teal-600 text-white rounded-2xl hover:bg-teal-700 transition-all"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                Play Again
-                            </motion.button>
-                            <motion.button
-                                onClick={onClose}
-                                className={`flex-1 py-2 rounded-2xl transition-all ${theme === "dark"
-                                    ? "bg-gray-800 text-white hover:bg-gray-700"
-                                    : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                                    }`}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                Close
-                            </motion.button>
-                        </div>
-                    </>
-                )}
-            </motion.div>
+                  </div>
+                </div>
+              )}
+              <div className="flex gap-4">
+                <motion.button
+                  onClick={restartGame}
+                  className="flex-1 py-2 bg-teal-600 text-white rounded-2xl hover:bg-teal-700 transition-all"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Play Again
+                </motion.button>
+                <motion.button
+                  onClick={onClose}
+                  className={`flex-1 py-2 rounded-2xl transition-all ${
+                    theme === "dark"
+                      ? "bg-gray-800 text-white hover:bg-gray-700"
+                      : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Close
+                </motion.button>
+              </div>
+            </>
+          )}
         </motion.div>
+      </motion.div>
     );
-};
-
+  };
+  
 // Main Portfolio Component
 const Portfolio = () => {
     const [activeTab, setActiveTab] = useState("about");
