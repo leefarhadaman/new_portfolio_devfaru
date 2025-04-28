@@ -171,13 +171,12 @@ const MemoryGame = ({ onClose, theme }) => {
 
     const timerRef = useRef(null);
 
-    const emojis = {
-        easy: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨"],
-        medium: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨", "🐯", "🦒"],
-        hard: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨", "🐯", "🦒", "🐘", "🦊", "🐹", "🐰"],
-    };
-
     const generateCards = useCallback(() => {
+        const emojis = {
+            easy: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨"],
+            medium: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨", "🐯", "🦒"],
+            hard: ["😺", "🐶", "🦁", "🐻", "🐼", "🐨", "🐯", "🦒", "🐘", "🦊", "🐹", "🐰"],
+        };
         const selectedEmojis = emojis[difficulty];
         const doubledEmojis = [...selectedEmojis, ...selectedEmojis].sort(() => Math.random() - 0.5);
         return doubledEmojis.map((emoji, index) => ({ id: index, emoji, isFlipped: false }));
