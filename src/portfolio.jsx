@@ -10,7 +10,6 @@ import {
     FaReact,
     FaNode,
     FaDatabase,
-    FaMobile,
     FaTools,
     FaServer,
     FaRocket,
@@ -22,12 +21,13 @@ import {
     FaGraduationCap,
     FaDownload,
     FaGamepad,
-    FaMoon,
-    FaSun,
     FaSearch,
     FaStar,
     FaCode,
     FaAccessibleIcon,
+    FaCodeBranch,
+    FaLaptopCode,
+    FaUserGraduate,
 } from "react-icons/fa";
 import {
     SiFlutter,
@@ -39,7 +39,6 @@ import {
     SiGit,
     SiFigma,
     SiTailwindcss,
-    SiNetlify,
     SiTypescript,
     SiMysql,
     SiCplusplus,
@@ -51,7 +50,7 @@ import { IoLogoJavascript } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Custom Alert Component
-const CustomAlert = ({ type, message, onClose }) => {
+export const CustomAlert = ({ type, message, onClose }) => {
     const bgColor = type === "success" ? "bg-green-100 border-green-400" : "bg-red-100 border-red-400";
     const Icon = type === "success" ? FaCheckCircle : FaExclamationCircle;
 
@@ -66,7 +65,10 @@ const CustomAlert = ({ type, message, onClose }) => {
                 <Icon className="h-5 w-5 text-gray-800 dark:text-gray-200" />
                 <p className="text-gray-800 text-sm dark:text-gray-200">{message}</p>
             </div>
-            <button onClick={onClose} className="ml-4 text-gray-800 hover:text-gray-900 transition-colors dark:text-gray-200">
+            <button
+                onClick={onClose}
+                className="ml-4 text-gray-800 hover:text-gray-900 transition-colors dark:text-gray-200"
+            >
                 ×
             </button>
         </motion.div>
@@ -92,7 +94,9 @@ const ProjectModal = ({ project, onClose, theme }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className={`text-xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>{project.name}</h3>
+                    <h3 className={`text-xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+                        {project.name}
+                    </h3>
                     <motion.button
                         whileHover={{ scale: 1.1, rotate: 90 }}
                         whileTap={{ scale: 0.9 }}
@@ -113,11 +117,17 @@ const ProjectModal = ({ project, onClose, theme }) => {
                     ))}
                 </div>
                 <div className="mb-6">
-                    <h4 className={`font-medium mb-2 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>Description</h4>
-                    <p className={`text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>{project.description}</p>
+                    <h4 className={`font-medium mb-2 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+                        Description
+                    </h4>
+                    <p className={`text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
+                        {project.description}
+                    </p>
                 </div>
                 <div className="mb-6">
-                    <h4 className={`font-medium mb-2 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>Key Features</h4>
+                    <h4 className={`font-medium mb-2 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+                        Key Features
+                    </h4>
                     <ul className={`list-disc list-inside text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
                         {project.features.map((feature, index) => (
                             <li key={index}>{feature}</li>
@@ -172,7 +182,7 @@ const MemoryGame = ({ onClose, theme }) => {
         const selectedEmojis = emojis[difficulty];
         const doubledEmojis = [...selectedEmojis, ...selectedEmojis].sort(() => Math.random() - 0.5);
         return doubledEmojis.map((emoji, index) => ({ id: index, emoji, isFlipped: false }));
-    }, [difficulty]);
+      }, [difficulty]);
 
     useEffect(() => {
         setCards(generateCards());
@@ -180,20 +190,20 @@ const MemoryGame = ({ onClose, theme }) => {
 
     useEffect(() => {
         if (gameStarted && timeLeft > 0) {
-            timerRef.current = setInterval(() => {
-                setTimeLeft((prev) => {
-                    if (prev <= 1) {
-                        clearInterval(timerRef.current);
-                        return 0;
-                    }
-                    return prev - 1;
-                });
-            }, 1000);
+          timerRef.current = setInterval(() => {
+            setTimeLeft((prev) => {
+              if (prev <= 1) {
+                clearInterval(timerRef.current);
+                return 0;
+              }
+              return prev - 1;
+            });
+          }, 1000);
         }
         return () => {
-            if (timerRef.current) clearInterval(timerRef.current);
+          if (timerRef.current) clearInterval(timerRef.current);
         };
-    }, [gameStarted]);
+      }, [gameStarted]);
 
     useEffect(() => {
         if (matched.length > 0 && matched.length === cards.length) {
@@ -232,7 +242,9 @@ const MemoryGame = ({ onClose, theme }) => {
                         setFlipped([]);
                         setCards((prev) =>
                             prev.map((card, i) =>
-                                !matched.includes(i) && (i === first || i === second) ? { ...card, isFlipped: false } : card
+                                !matched.includes(i) && (i === first || i === second)
+                                    ? { ...card, isFlipped: false }
+                                    : card
                             )
                         );
                     }, 1000);
@@ -275,7 +287,9 @@ const MemoryGame = ({ onClose, theme }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className={`text-xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>Memory Game</h3>
+                    <h3 className={`text-xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+                        Memory Game
+                    </h3>
                     <motion.button
                         whileHover={{ scale: 1.1, rotate: 90 }}
                         whileTap={{ scale: 0.9 }}
@@ -287,7 +301,9 @@ const MemoryGame = ({ onClose, theme }) => {
                 </div>
                 {!gameStarted ? (
                     <div className="mb-6">
-                        <h4 className={`font-medium mb-4 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>Select Difficulty</h4>
+                        <h4 className={`font-medium mb-4 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+                            Select Difficulty
+                        </h4>
                         <div className="grid grid-cols-3 gap-3 mb-6">
                             {["easy", "medium", "hard"].map((level) => (
                                 <motion.button
@@ -324,7 +340,10 @@ const MemoryGame = ({ onClose, theme }) => {
                             </div>
                             <div className={`p-2 rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
                                 <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Time</p>
-                                <p className={`font-bold ${timeLeft < 10 ? "text-red-500" : theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
+                                <p
+                                    className={`font-bold ${timeLeft < 10 ? "text-red-500" : theme === "dark" ? "text-teal-400" : "text-teal-600"
+                                        }`}
+                                >
                                     {timeLeft}s
                                 </p>
                             </div>
@@ -376,7 +395,9 @@ const MemoryGame = ({ onClose, theme }) => {
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
                                             <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Final Score</p>
-                                            <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>{score}</p>
+                                            <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
+                                                {score}
+                                            </p>
                                         </div>
                                         <div>
                                             <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Time Taken</p>
@@ -386,7 +407,9 @@ const MemoryGame = ({ onClose, theme }) => {
                                         </div>
                                         <div>
                                             <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Moves</p>
-                                            <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>{moves}</p>
+                                            <p className={`text-2xl font-bold ${theme === "dark" ? "text-teal-400" : "text-teal-600"}`}>
+                                                {moves}
+                                            </p>
                                         </div>
                                         <div>
                                             <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Pairs Found</p>
@@ -436,6 +459,8 @@ const Portfolio = () => {
     const [showGame, setShowGame] = useState(false);
     const [theme, setTheme] = useState("dark");
     const [searchTerm, setSearchTerm] = useState("");
+    const [imgError, setImgError] = useState(false);
+    const [downloadStatus, setDownloadStatus] = useState({ type: "", message: "" });
 
     // Theme toggle effect
     useEffect(() => {
@@ -455,16 +480,6 @@ const Portfolio = () => {
         }
     }, []);
 
-    const toggleTheme = () => {
-        const newTheme = theme === "dark" ? "light" : "dark";
-        setTheme(newTheme);
-        localStorage.setItem("theme", newTheme);
-        if (newTheme === "dark") {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
-    };
 
     // Form submission handler
     const handleSubmit = async (event) => {
@@ -483,6 +498,32 @@ const Portfolio = () => {
         }
     };
 
+    // Resume download handler
+    const handleDownloadResume = () => {
+        const link = document.createElement("a");
+        link.href = personalInfo.resume;
+        link.download = "Farhad_Ali_Resume.pdf"; // User-friendly filename
+        link.target = "_blank"; // Fallback to open in new tab
+        link.onerror = () => {
+            console.error("Failed to download resume. Check if file exists at", personalInfo.resume);
+            setDownloadStatus({
+                type: "error",
+                message: "Failed to download resume. Please try again or contact me directly.",
+            });
+            setTimeout(() => setDownloadStatus({ type: "", message: "" }), 5000);
+        };
+        link.onload = () => {
+            setDownloadStatus({
+                type: "success",
+                message: "Resume download started!",
+            });
+            setTimeout(() => setDownloadStatus({ type: "", message: "" }), 5000);
+        };
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     // Personal Information
     const personalInfo = {
         name: "Farhad Ali",
@@ -492,7 +533,9 @@ const Portfolio = () => {
         phone: "+91 8638960613",
         github: "https://github.com/leefarhadaman",
         linkedin: "https://www.linkedin.com/in/farhad-ali-8bb801201/",
-        resume: "/resume.pdf",
+        resume: "/SoftwareDeveloper.pdf", // Ensure SoftwareDeveloper.pdf is in public/ directory
+        // Alternative: Use external URL if local file fails
+        // resume: "https://drive.google.com/uc?export=download&id=your-file-id",
         bio: `I'm a passionate Full Stack Developer with over 2 years of experience in crafting robust, user-centric web and mobile applications. My journey began with a curiosity for technology, leading me to master both frontend and backend development. I specialize in creating seamless, high-performance solutions using technologies like React, Flutter, Node.js, and Python. 
 
 Beyond coding, I thrive on solving complex problems, collaborating with teams, and delivering projects that make a tangible impact. My freelance work has honed my ability to understand client needs and translate them into intuitive applications. I'm deeply committed to staying at the forefront of technology, constantly exploring new tools and frameworks to enhance my skill set.
@@ -536,62 +579,217 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                 "Architected and implemented complete web solutions for clients in e-commerce and finance sectors",
                 "Optimized database queries resulting in 40% faster load times",
                 "Mentored junior developers and led code reviews",
-                "Integrated third-party APIs for payment processing and data analytics"
+                "Integrated third-party APIs for payment processing and data analytics",
             ],
-            tech: ["React", "Node.js", "MongoDB", "Express", "AWS"]
+            tech: ["React", "Node.js", "MongoDB", "Express", "AWS"],
         },
         {
             title: "Flutter Developer (Part-Time/Intern)",
             company: "Rhinoceros Technologies Pvt Ltd",
             location: "Remote",
             duration: "Dec 2023 – Apr 2024",
-            description: "Developed cross-platform mobile applications using Flutter and Firebase for startups and small businesses.",
+            description:
+                "Developed cross-platform mobile applications using Flutter and Firebase for startups and small businesses.",
             responsibilities: [
                 "Built feature-rich UI components with complex animations",
                 "Implemented state management using Provider and Bloc patterns",
                 "Created real-time chat functionality with Firebase",
-                "Optimized app performance across iOS and Android platforms"
+                "Optimized app performance across iOS and Android platforms",
             ],
-            tech: ["Flutter", "Dart", "Firebase", "REST APIs", "SQLite"]
+            tech: ["Flutter", "Dart", "Firebase", "REST APIs", "SQLite"],
         },
         {
             title: "Flutter Developer Intern",
             company: "Vidcomet Ecommerce Pvt Ltd",
             location: "Guwahati, India",
             duration: "Sep 2023 – Dec 2023",
-            description: "Developed an e-commerce mobile application with product catalog, user authentication, and payment integration.",
+            description:
+                "Developed an e-commerce mobile application with product catalog, user authentication, and payment integration.",
             responsibilities: [
                 "Implemented user authentication with Firebase Auth",
                 "Built shopping cart and checkout functionality",
                 "Integrated payment gateways including Razorpay and PayTM",
-                "Created product filtering and search functionality"
+                "Created product filtering and search functionality",
             ],
-            tech: ["Flutter", "Firebase", "Dart", "Payment APIs"]
+            tech: ["Flutter", "Firebase", "Dart", "Payment APIs"],
         },
         {
             title: "Freelancer",
             company: "Self-employed",
             location: "Remote",
             duration: "2020 – Present",
-            description: "Delivered custom web and mobile solutions for various clients, specializing in React, Flutter, and MERN stack development.",
+            description:
+                "Delivered custom web and mobile solutions for various clients, specializing in React, Flutter, and MERN stack development.",
             responsibilities: [
                 "Developed full-stack web applications for small businesses",
                 "Created mobile apps for Android and iOS using Flutter",
                 "Designed and implemented database schemas",
-                "Provided ongoing maintenance and support services"
+                "Provided ongoing maintenance and support services",
             ],
-            tech: ["React", "Node.js", "Flutter", "MongoDB", "Firebase"]
+            tech: ["React", "Node.js", "Flutter", "MongoDB", "Firebase"],
         },
     ];
 
     // Projects Data
     const projects = [
         {
+            name: "Simple_FaceRecognizeApp",
+            tech: "Python",
+            description:
+                "A Python-based application for real-time face recognition using computer vision techniques. It detects and identifies faces in images or video streams with high accuracy.",
+            github: "https://github.com/leefarhadaman/Simple_FaceRecognizeApp",
+            demo: "*",
+            features: [
+                "Real-time face detection using OpenCV",
+                "Face recognition with pre-trained models",
+                "Support for image and video input",
+                "User-friendly interface for testing",
+                "Export detection results to CSV"
+            ],
+        },
+        {
+            name: "InstaProfileAnalyzer",
+            tech: "Flutter, Python",
+            description:
+                "A Python-based tool designed to fetch and analyze data from public Instagram profiles, with a Flutter frontend for a user-friendly interface. It provides insights into profile details and post analytics.",
+            github: "https://github.com/leefarhadaman/InstaProfileAnalyzer",
+            demo: "*",
+            features: [
+                "Fetch profile details: Bio, username, external links, and profile picture",
+                "Analyze post engagement metrics (likes, comments)",
+                "Organized output in JSON or CSV format",
+                "Cross-platform Flutter UI for easy navigation",
+                "Support for batch profile analysis"
+            ],
+        },
+        {
+            name: "Real-Time-Sorting-Algorithms-Comparison",
+            tech: "Python, HTML",
+            description:
+                "A web-based tool that visualizes and compares the performance of various sorting algorithms in real time, implemented in Python and rendered using HTML.",
+            github: "https://github.com/leefarhadaman/-Real-Time-Sorting-Algorithms-Comparison",
+            demo: "*",
+            features: [
+                "Visualize sorting algorithms (Bubble, Quick, Merge, etc.)",
+                "Real-time performance metrics (time, comparisons)",
+                "Interactive HTML dashboard for algorithm selection",
+                "Customizable input data sizes",
+                "Export comparison results as charts"
+            ],
+        },
+        {
+            name: "AI-Powered Chat App with Flutter & GetX",
+            tech: "Flutter, GetX, Google Gemini API, HTTP",
+            description:
+                "An AI-powered chat application built with Flutter and GetX, leveraging the Google Gemini API for generating intelligent, real-time responses.",
+            github: "https://github.com/leefarhadaman/chatapp-flutter",
+            demo: "*",
+            features: [
+                "Real-time chat interface with smooth, user-friendly UI",
+                "AI-driven responses using Google Gemini API",
+                "State management with GetX for efficient performance",
+                "Support for multimedia message previews",
+                "Chat history storage and retrieval"
+            ],
+        },
+        {
+            name: "Phone Directory",
+            tech: "Python, Tkinter, SQLite3, CSV",
+            description:
+                "A simple phone directory application built using Python, SQLite, and Tkinter. It provides CRUD functionality for managing contacts and supports exporting contacts to a CSV file.",
+            github: "https://github.com/leefarhadaman/phonedirectory",
+            demo: "*",
+            features: [
+                "Add contacts with name and phone number",
+                "Update existing contact details",
+                "Delete unwanted contacts from the directory",
+                "Search contacts by name or phone number",
+                "Export all contacts to a CSV file",
+                "User-friendly Tkinter graphical interface"
+            ],
+        },
+        {
+            name: "TripPlanner - Flutter",
+            tech: "Flutter, GetX, Google Gemini API, HTTP",
+            description:
+                "A travel planning application built with Flutter and GetX, utilizing the Google Gemini API to generate personalized trip itineraries and recommendations.",
+            github: "https://github.com/leefarhadaman/TripPlanner_Flutter",
+            demo: "*",
+            features: [
+                "Generate customized trip itineraries based on user preferences",
+                "AI-powered destination and activity recommendations",
+                "Real-time budget tracking and expense management",
+                "Interactive map integration for route planning",
+                "Offline access to saved itineraries"
+            ],
+        },
+        {
+            name: "SQL_QUERY_RUNNER",
+            tech: "React, MERN, MySQL",
+            description:
+                "A web application built with React and the MERN stack, allowing users to connect to a MySQL database, run SQL queries, and view results in real time. Features a query editor and dark mode support.",
+            github: "https://github.com/leefarhadaman/SQL_QUERY_RUNNER",
+            demo: "*",
+            features: [
+                "Interactive SQL query editor with syntax highlighting",
+                "Real-time query execution and result display",
+                "Query history for quick access to past queries",
+                "Dark mode for improved user experience",
+                "Secure database connection management"
+            ],
+        },
+        {
+            name: "Advanced-Typing-Speed-Test",
+            tech: "Python, SQLite, Flask Sessions, Chart.js, JavaScript",
+            description:
+                "A web-based typing speed test application that measures typing speed and accuracy, with features for saving results and visualizing performance using Chart.js.",
+            github: "https://github.com/leefarhadaman/Advanced-Typing-Speed-Test",
+            demo: "*",
+            features: [
+                "Accurate typing speed and accuracy measurement",
+                "Save test results to SQLite database",
+                "Interactive performance charts with Chart.js",
+                "Session management with Flask for user tracking",
+                "Customizable test duration and difficulty"
+            ],
+        },
+        {
+            name: "Online Python Compiler",
+            tech: "React, MERN",
+            description:
+                "A web-based Python compiler built with React and the MERN stack, allowing users to write, run, and debug Python code in real time with a user-friendly interface.",
+            github: "https://github.com/leefarhadaman/online-python-compiler",
+            demo: "*",
+            features: [
+                "Real-time Python code execution",
+                "Syntax-highlighted code editor",
+                "Error handling and debug output",
+                "Save and share code snippets",
+                "Support for multiple Python libraries"
+            ],
+        },
+        {
+            name: "Scrapper",
+            tech: "Flutter, GetX, Google Gemini API, HTTP",
+            description:
+                "A web scraping tool with a Flutter-based GUI and Turtle graphics, designed to extract and save data from websites with AI-assisted parsing using the Google Gemini API.",
+            github: "https://github.com/leefarhadaman/Scrapper",
+            demo: "*",
+            features: [
+                "Extract data from websites with customizable selectors",
+                "AI-assisted data parsing with Google Gemini API",
+                "Interactive Turtle graphics for visualizing scraping process",
+                "Export scraped data to JSON or CSV",
+                "Cross-platform Flutter interface"
+            ],
+        },
+        {
             name: "DineSmart",
             tech: "Flutter, Firebase, Stripe API",
-            description: "A food ordering app with real-time order tracking, authentication, and secure payment processing.",
-            github: "https://github.com/leefarhadaman/dinesmart",
-            demo: "https://dinesmart-demo.web.app",
+            description:
+                "A food ordering app with real-time order tracking, authentication, and secure payment processing.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "User authentication with email and social login",
                 "Real-time order tracking with notifications",
@@ -603,9 +801,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "EventSync",
             tech: "ReactJS, Node.js, MongoDB, Socket.io",
-            description: "A real-time event scheduling platform with notifications, allowing teams to coordinate and manage events efficiently.",
-            github: "https://github.com/leefarhadaman/eventsync",
-            demo: "https://eventsync.vercel.app",
+            description:
+                "A real-time event scheduling platform with notifications, allowing teams to coordinate and manage events efficiently.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Real-time calendar updates with Socket.io",
                 "Team collaboration and event sharing",
@@ -617,9 +816,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "TaskFlow",
             tech: "ReactJS, Firebase, Tailwind CSS",
-            description: "A task management system with drag-and-drop functionality, real-time updates, and team collaboration features.",
-            github: "https://github.com/leefarhadaman/taskflow",
-            demo: "https://taskflow-app.vercel.app",
+            description:
+                "A task management system with drag-and-drop functionality, real-time updates, and team collaboration features.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Kanban-style board with drag-and-drop",
                 "Task deadline reminders and notifications",
@@ -631,9 +831,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "CloudVault",
             tech: "React, Node.js, AWS S3, MongoDB",
-            description: "A secure cloud storage solution with file encryption, sharing capabilities, and access control.",
-            github: "https://github.com/leefarhadaman/cloudvault",
-            demo: "https://cloudvault.netlify.app",
+            description:
+                "A secure cloud storage solution with file encryption, sharing capabilities, and access control.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "End-to-end file encryption",
                 "Granular access control and permissions",
@@ -645,9 +846,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "MedConnect",
             tech: "Flutter, Firebase, Agora API",
-            description: "A telehealth application connecting patients with healthcare providers through secure video consultations.",
-            github: "https://github.com/leefarhadaman/medconnect",
-            demo: "https://medconnect.web.app",
+            description:
+                "A telehealth application connecting patients with healthcare providers through secure video consultations.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Encrypted video consultations",
                 "Electronic health records management",
@@ -659,9 +861,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "CodeCollab",
             tech: "React, WebSocket, Express, MongoDB",
-            description: "A collaborative code editing platform with real-time collaboration, version control, and code execution features.",
-            github: "https://github.com/leefarhadaman/codecollab",
-            demo: "https://codecollab.vercel.app",
+            description:
+                "A collaborative code editing platform with real-time collaboration, version control, and code execution features.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Real-time collaborative code editing",
                 "Multiple programming language support",
@@ -673,9 +876,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "FitTrack",
             tech: "Flutter, Firebase, RESTful APIs",
-            description: "A fitness tracking application with workout plans, progress tracking, and health metrics visualization.",
-            github: "https://github.com/leefarhadaman/fittrack",
-            demo: "https://fittrack-app.web.app",
+            description:
+                "A fitness tracking application with workout plans, progress tracking, and health metrics visualization.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Custom workout plan creation",
                 "Progress tracking with graphs and statistics",
@@ -687,9 +891,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "SmartBudget",
             tech: "React Native, Firebase, Charts.js",
-            description: "A personal finance management app with expense tracking, budget planning, and financial insights.",
-            github: "https://github.com/leefarhadaman/smartbudget",
-            demo: "https://smartbudget.app",
+            description:
+                "A personal finance management app with expense tracking, budget planning, and financial insights.",
+            github: "https://github.com/leefarhadaman/expense_tracker",
+            demo: "*",
             features: [
                 "Expense categorization and tracking",
                 "Budget creation and monitoring",
@@ -701,9 +906,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "SpotOn",
             tech: "Python, Machine Learning, Flutter",
-            description: "A skin cancer detection app using machine learning to analyze skin images and determine the likelihood of skin cancer.",
-            github: "https://github.com/leefarhadaman/spoton",
-            demo: "https://spoton-demo.web.app",
+            description:
+                "A skin cancer detection app using machine learning to analyze skin images and determine the likelihood of skin cancer.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Machine learning model to analyze skin images",
                 "Real-time cancer detection suggestions",
@@ -715,9 +921,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "StegoSecure",
             tech: "Python, OpenCV, Cryptography",
-            description: "A steganography app to hide sensitive information in images with encryption for secure data transfer.",
-            github: "https://github.com/leefarhadaman/stegosecure",
-            demo: "https://stegosecure-demo.web.app",
+            description:
+                "A steganography app to hide sensitive information in images with encryption for secure data transfer.",
+            github: "https://github.com/leefarhadaman/steganography-tool",
+            demo: "*",
             features: [
                 "Hide text or files within images",
                 "Encryption for added security",
@@ -729,9 +936,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "PasswordVault",
             tech: "Python, SQLite, Cryptography",
-            description: "A secure password manager to store and encrypt user credentials with password generation capabilities.",
-            github: "https://github.com/leefarhadaman/passwordvault",
-            demo: "https://passwordvault-demo.web.app",
+            description:
+                "A secure password manager to store and encrypt user credentials with password generation capabilities.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Secure password encryption",
                 "Password generation tool",
@@ -743,9 +951,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "SecureChat",
             tech: "Python, Flask, WebSockets",
-            description: "A real-time encrypted chat application with end-to-end encryption, perfect for secure communication.",
-            github: "https://github.com/leefarhadaman/securechat",
-            demo: "https://securechat-demo.web.app",
+            description:
+                "A real-time encrypted chat application with end-to-end encryption, perfect for secure communication.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Real-time messaging with WebSockets",
                 "End-to-end encryption for privacy",
@@ -757,9 +966,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "FileEncryptor",
             tech: "Python, Cryptography",
-            description: "A Python-based tool to encrypt and decrypt files with AES encryption, ensuring secure file transfers.",
-            github: "https://github.com/leefarhadaman/fileencryptor",
-            demo: "https://fileencryptor-demo.web.app",
+            description:
+                "A Python-based tool to encrypt and decrypt files with AES encryption, ensuring secure file transfers.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "AES encryption and decryption",
                 "Password-based file protection",
@@ -771,9 +981,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "BookStore",
             tech: "React, Node.js, Express, MongoDB, MERN",
-            description: "A full-fledged e-commerce platform to buy and sell books with real-time updates and payment integration.",
-            github: "https://github.com/leefarhadaman/bookstore",
-            demo: "https://bookstore-app.vercel.app",
+            description:
+                "A full-fledged e-commerce platform to buy and sell books with real-time updates and payment integration.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Real-time product updates with WebSocket",
                 "User authentication with JWT",
@@ -785,9 +996,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "TaskMaster",
             tech: "React, Node.js, MongoDB, Express, MERN",
-            description: "A task management system with user authentication, to-do lists, and team collaboration.",
-            github: "https://github.com/leefarhadaman/taskmaster",
-            demo: "https://taskmaster-app.vercel.app",
+            description:
+                "A task management system with user authentication, to-do lists, and team collaboration.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "User authentication with JWT",
                 "Task creation and management",
@@ -799,9 +1011,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "WeatherApp",
             tech: "React, Node.js, Express, MongoDB, OpenWeather API, MERN",
-            description: "A weather forecast app that shows real-time weather data based on user's location with detailed insights.",
-            github: "https://github.com/leefarhadaman/weatherapp",
-            demo: "https://weatherapp.vercel.app",
+            description:
+                "A weather forecast app that shows real-time weather data based on user's location with detailed insights.",
+            github: "https://github.com/leefarhadaman/weatherapp_starter_project",
+            demo: "*",
             features: [
                 "Real-time weather data fetching",
                 "Location-based weather display",
@@ -813,9 +1026,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "ExpenseTracker",
             tech: "React, Node.js, Express, MongoDB, MERN",
-            description: "A personal finance management app that helps track income, expenses, and financial goals.",
-            github: "https://github.com/leefarhadaman/expensetracker",
-            demo: "https://expensetracker.vercel.app",
+            description:
+                "A personal finance management app that helps track income, expenses, and financial goals.",
+            github: "https://github.com/leefarhadaman/expense_tracker",
+            demo: "*",
             features: [
                 "Track daily expenses and income",
                 "Create and monitor financial goals",
@@ -827,9 +1041,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "SocialConnect",
             tech: "React, Node.js, Express, MongoDB, Socket.io, MERN",
-            description: "A social media platform with real-time chat, post creation, and friend management features.",
-            github: "https://github.com/leefarhadaman/socialconnect",
-            demo: "https://socialconnect.vercel.app",
+            description:
+                "A social media platform with real-time chat, post creation, and friend management features.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Real-time chat with Socket.io",
                 "User profiles and friend requests",
@@ -841,9 +1056,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "RealEstatePortal",
             tech: "React, Node.js, Express, MongoDB, MERN",
-            description: "A platform for browsing and managing real estate listings, including property details and booking options.",
-            github: "https://github.com/leefarhadaman/realestateportal",
-            demo: "https://realestateportal.vercel.app",
+            description:
+                "A platform for browsing and managing real estate listings, including property details and booking options.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Property search and filtering",
                 "User profiles and property bookings",
@@ -855,9 +1071,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         {
             name: "JobPortal",
             tech: "React, Node.js, Express, MongoDB, MERN",
-            description: "A job portal for job seekers and employers with job listings, applications, and real-time updates.",
-            github: "https://github.com/leefarhadaman/jobportal",
-            demo: "https://jobportal.vercel.app",
+            description:
+                "A job portal for job seekers and employers with job listings, applications, and real-time updates.",
+            github: "/project-info",
+            demo: "*",
             features: [
                 "Job listing and search functionality",
                 "Employer profile management",
@@ -865,9 +1082,9 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                 "Real-time notifications for new listings",
                 "Resume upload and profile updates"
             ],
-        }
+        },
     ];
-
+    
     // Skills Data
     const skills = {
         frontend: [
@@ -932,18 +1149,18 @@ When I'm not coding, you can find me contributing to open-source projects, writi
     // Filter projects
     const filteredProjects = projects.filter((project) => {
         const matchesFilter = projectFilter === "all" || project.tech.includes(projectFilter);
-        const matchesSearch = searchTerm === "" ||
+        const matchesSearch =
+            searchTerm === "" ||
             project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             project.tech.toLowerCase().includes(searchTerm.toLowerCase()) ||
             project.description.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesFilter && matchesSearch;
     });
 
-    const [imgError, setImgError] = useState(false);
-
-
     return (
-        <div className={`min-h-screen bg-gray-900 dark:bg-gray-900 text-white font-sans w-full transition-colors duration-300`}>
+        <div
+            className={`min-h-screen bg-gray-900 dark:bg-gray-900 text-white font-sans w-full transition-colors duration-300`}
+        >
             <div className="lg:flex w-full">
                 {/* Desktop Sidebar */}
                 <motion.aside
@@ -954,26 +1171,12 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                 >
                     <div className="flex items-center justify-between mb-10">
                         <h1 className="text-3xl font-bold text-teal-400">{personalInfo.name}</h1>
-                        {/* <motion.button
-              onClick={toggleTheme}
-              className={`p-2 rounded-full ${
-                theme === "dark"
-                  ? "bg-gray-700 text-yellow-400"
-                  : "bg-gray-200 text-gray-800"
-              }`}
-              whileHover={{ scale: 1.1, rotate: 15 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              {theme === "dark" ? <FaSun /> : <FaMoon />}
-            </motion.button> */}
                     </div>
                     <nav className="flex flex-col gap-4">
                         {navItems.map((item) => (
                             <motion.button
                                 key={item.id}
-                                onClick={() =>
-                                    item.id === "timepass" ? setShowGame(true) : setActiveTab(item.id)
-                                }
+                                onClick={() => (item.id === "timepass" ? setShowGame(true) : setActiveTab(item.id))}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all ${activeTab === item.id
                                         ? "bg-teal-500 text-white shadow-lg"
                                         : "text-gray-300 hover:bg-gray-700 hover:text-white"
@@ -986,15 +1189,14 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                             </motion.button>
                         ))}
                     </nav>
-                    <motion.a
-                        href={personalInfo.resume}
-                        download
+                    <motion.button
+                        onClick={handleDownloadResume}
                         className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-teal-600 text-white rounded-2xl hover:bg-teal-700 transition-all w-full justify-center"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
                         <FaDownload /> Download Resume
-                    </motion.a>
+                    </motion.button>
                     <div className="mt-6 flex gap-4 justify-center">
                         {[
                             { icon: <FaGithub />, link: personalInfo.github },
@@ -1024,9 +1226,7 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                     {navItems.map((item) => (
                         <motion.button
                             key={item.id}
-                            onClick={() =>
-                                item.id === "timepass" ? setShowGame(true) : setActiveTab(item.id)
-                            }
+                            onClick={() => (item.id === "timepass" ? setShowGame(true) : setActiveTab(item.id))}
                             className={`p-3 rounded-full text-xl ${activeTab === item.id ? "bg-teal-500 text-white" : "text-gray-300"
                                 }`}
                             whileHover={{ scale: 1.1 }}
@@ -1042,19 +1242,25 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                     {/* Mobile Header */}
                     <div className="lg:hidden flex justify-between items-center mb-6">
                         <h1 className="text-3xl font-bold text-teal-400">{personalInfo.name}</h1>
-                        {/* <motion.button
-              onClick={toggleTheme}
-              className={`p-2 rounded-full ${
-                theme === "dark"
-                  ? "bg-gray-700 text-yellow-400"
-                  : "bg-gray-200 text-gray-800"
-              }`}
-              whileHover={{ scale: 1.1, rotate: 15 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              {theme === "dark" ? <FaSun /> : <FaMoon />}
-            </motion.button> */}
                     </div>
+
+                    {/* Download Status Alert */}
+                    <AnimatePresence>
+                        {downloadStatus.message && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full"
+                            >
+                                <CustomAlert
+                                    type={downloadStatus.type}
+                                    message={downloadStatus.message}
+                                    onClose={() => setDownloadStatus({ type: "", message: "" })}
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
                     <AnimatePresence mode="wait">
                         {/* About Section */}
@@ -1104,15 +1310,14 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                                 {personalInfo.phone}
                                             </a>
                                         </p>
-                                        <motion.a
-                                            href={personalInfo.resume}
-                                            download
+                                        <motion.button
+                                            onClick={handleDownloadResume}
                                             className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600 text-white rounded-2xl hover:bg-teal-700 transition-all w-full justify-center lg:hidden"
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                         >
                                             <FaDownload /> Download Resume
-                                        </motion.a>
+                                        </motion.button>
                                         <div className="flex gap-4 justify-center mt-6 lg:hidden">
                                             {[
                                                 { icon: <FaGithub />, link: personalInfo.github },
@@ -1145,7 +1350,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                                     <h3 className="text-lg font-semibold text-white mb-2">Languages</h3>
                                                     <div className="flex flex-wrap gap-2">
                                                         {["English (Fluent)", "Hindi (Native)", "Assamese (Native)"].map((lang, index) => (
-                                                            <span key={index} className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs">
+                                                            <span
+                                                                key={index}
+                                                                className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs"
+                                                            >
                                                                 {lang}
                                                             </span>
                                                         ))}
@@ -1155,7 +1363,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                                     <h3 className="text-lg font-semibold text-white mb-2">Interests</h3>
                                                     <div className="flex flex-wrap gap-2">
                                                         {["Open Source", "AI/ML", "Tech Blogs", "Hiking"].map((interest, index) => (
-                                                            <span key={index} className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs">
+                                                            <span
+                                                                key={index}
+                                                                className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs"
+                                                            >
                                                                 {interest}
                                                             </span>
                                                         ))}
@@ -1169,25 +1380,61 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                             transition={{ duration: 0.3 }}
                                         >
                                             <h2 className="text-2xl font-bold text-teal-400 mb-6">Milestones</h2>
-                                            <div className="relative pl-8">
+                                            <div className="relative mx-auto max-w-lg">
+                                                <div className="absolute left-6 top-0 w-1 h-full bg-gradient-to-b from-teal-500 to-indigo-500" />
                                                 {[
-                                                    { year: 2020, event: "Started freelancing, built first client website" },
-                                                    { year: 2021, event: "Won inter-school coding competition" },
-                                                    { year: 2023, event: "Joined Vidcomet as Flutter Developer Intern" },
-                                                    { year: 2024, event: "Graduated with BCA, joined Zero9 as Full Stack Developer" },
+                                                    {
+                                                        year: 2020,
+                                                        event: "Started Freelancing",
+                                                        description:
+                                                            "Launched my freelance career by building a website for a local business, marking the beginning of my professional journey.",
+                                                        icon: <FaCodeBranch className="text-teal-400" />,
+                                                        isMajor: false,
+                                                    },
+                                                    {
+                                                        year: 2023,
+                                                        event: "Joined Vidcomet",
+                                                        description:
+                                                            "Secured my first internship as a Flutter Developer at Vidcomet, working on an e-commerce mobile app.",
+                                                        icon: <FaLaptopCode className="text-indigo-400" />,
+                                                        isMajor: false,
+                                                    },
+                                                    {
+                                                        year: 2024,
+                                                        event: "Graduated & Joined Zero9",
+                                                        description:
+                                                            "Completed BCA from Assam Don Bosco University and joined Zero9 as a Full Stack Developer, leading web projects.",
+                                                        icon: <FaUserGraduate className="text-teal-400" />,
+                                                        isMajor: true,
+                                                    },
                                                 ].map((milestone, index) => (
                                                     <motion.div
                                                         key={index}
-                                                        className="mb-6 relative"
-                                                        initial={{ opacity: 0, x: -20 }}
-                                                        animate={{ opacity: 1, x: 0 }}
-                                                        transition={{ delay: index * 0.2 }}
+                                                        className="relative mb-8"
+                                                        initial={{ opacity: 0, y: 20 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        transition={{ duration: 0.5, delay: index * 0.3 }}
                                                     >
-                                                        <div className="absolute left-0 top-0 w-4 h-4 bg-teal-500 rounded-full" />
-                                                        {index < 3 && <div className="absolute left-2 top-4 w-0.5 h-full bg-teal-500" />}
-                                                        <p className="text-gray-300 text-sm">
-                                                            <span className="font-bold text-teal-400">{milestone.year}</span>: {milestone.event}
-                                                        </p>
+                                                        <div className="absolute left-4 top-4 w-4 h-4 bg-teal-500 rounded-full border-2 border-gray-800 shadow-lg" />
+                                                        <motion.div
+                                                            className="ml-12 bg-gray-700 bg-opacity-90 backdrop-blur-md rounded-2xl p-4 shadow-lg hover:shadow-teal-500/50 transition-shadow"
+                                                            whileHover={{ y: -5, scale: 1.02 }}
+                                                            transition={{ duration: 0.2 }}
+                                                        >
+                                                            <div className="flex items-center gap-3 mb-2">
+                                                                <div className={`text-2xl ${milestone.isMajor ? "text-3xl" : ""}`}>
+                                                                    {milestone.icon}
+                                                                </div>
+                                                                <div>
+                                                                    <h3 className="text-lg font-semibold text-white">
+                                                                        {milestone.event}
+                                                                        {milestone.isMajor && <FaStar className="inline ml-2 text-yellow-400" />}
+                                                                    </h3>
+                                                                    <p className="text-sm text-teal-400">{milestone.year}</p>
+                                                                </div>
+                                                            </div>
+                                                            <p className="text-gray-300 text-sm">{milestone.description}</p>
+                                                        </motion.div>
                                                     </motion.div>
                                                 ))}
                                             </div>
@@ -1222,7 +1469,7 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                             </div>
                                             <p className="text-gray-300 text-sm mb-2">{edu.institution}</p>
                                             <p className="text-gray-400 text-xs mb-2">Graduation: {edu.graduationYear}</p>
-                                            <p className="text-gray-400 text-xs mb-3">GPA: {edu.gpa}</p>    
+                                            <p className="text-gray-400 text-xs mb-3">GPA: {edu.gpa}</p>
                                         </motion.div>
                                     ))}
                                 </div>
@@ -1298,8 +1545,7 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                     {experience.map((exp, index) => (
                                         <motion.div
                                             key={index}
-                                            className={`flex items-center mb-12 ${index % 2 === 0 ? "flex-row-reverse" : ""
-                                                }`}
+                                            className={`flex items-center mb-12 ${index % 2 === 0 ? "flex-row-reverse" : ""}`}
                                             initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ duration: 0.5, delay: index * 0.2 }}
@@ -1314,7 +1560,9 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                                         <FaBriefcase className="text-teal-500" />
                                                         <h3 className="text-lg font-semibold text-white">{exp.title}</h3>
                                                     </div>
-                                                    <p className="text-gray-300 text-sm mb-2">{exp.company} • {exp.location}</p>
+                                                    <p className="text-gray-300 text-sm mb-2">
+                                                        {exp.company} • {exp.location}
+                                                    </p>
                                                     <p className="text-gray-400 text-xs mb-3">{exp.duration}</p>
                                                     <p className="text-gray-300 text-sm mb-4">{exp.description}</p>
                                                     <h4 className="text-sm font-semibold text-gray-300 mb-2">Key Responsibilities:</h4>
@@ -1352,7 +1600,9 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                                 <FaBriefcase className="text-teal-500 text-xl" />
                                                 <h3 className="text-lg font-semibold text-white">{exp.title}</h3>
                                             </div>
-                                            <p className="text-gray-300 text-sm mb-2">{exp.company} • {exp.location}</p>
+                                            <p className="text-gray-300 text-sm mb-2">
+                                                {exp.company} • {exp.location}
+                                            </p>
                                             <p className="text-gray-400 text-xs mb-3">{exp.duration}</p>
                                             <p className="text-gray-300 text-sm mb-4">{exp.description}</p>
                                             <h4 className="text-sm font-semibold text-gray-300 mb-2">Key Responsibilities:</h4>
@@ -1451,6 +1701,7 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                 )}
                             </motion.section>
                         )}
+
 
                         {/* Contact Section */}
                         {activeTab === "contact" && (
