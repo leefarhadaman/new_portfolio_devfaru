@@ -657,6 +657,20 @@ When I'm not coding, you can find me contributing to open-source projects, writi
     // Projects Data
     const projects = [
         {
+            "name": "SmallFancy",
+            "tech": "MERN, React",
+            "description": "A full-featured eCommerce web application built with the MERN stack. It offers seamless product browsing, user authentication, cart management, and secure checkout functionality.",
+            "github": "https://github.com/leefarhadaman/ecco_merce",
+            "demo": "https://smallfancy.netlify.app",
+            "features": [
+              "User registration and authentication",
+              "Product listing with search and filters",
+              "Shopping cart and checkout process",
+              "Admin dashboard for product and order management",
+              "Order history and payment integration"
+            ]
+          },          
+        {
             name: "Simple_FaceRecognizeApp",
             tech: "Python",
             description:
