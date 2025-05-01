@@ -16,6 +16,7 @@ import {
     FaAws,
     FaHtml5,
     FaBuilding,
+    FaCertificate,
     FaBriefcase,
     FaJava,
     FaGraduationCap,
@@ -28,6 +29,10 @@ import {
     FaCodeBranch,
     FaLaptopCode,
     FaUserGraduate,
+    FaShieldAlt,
+    FaNetworkWired,
+    FaBrain,
+    FaChartBar,
 } from "react-icons/fa";
 import {
     SiFlutter,
@@ -280,9 +285,8 @@ const MemoryGame = ({ onClose, theme }) => {
                 initial={{ scale: 0.8, y: 50 }}
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.8, y: 50 }}
-                className={`${
-                    theme === "dark" ? "bg-gray-900" : "bg-white"
-                } bg-opacity-90 backdrop-blur-md rounded-3xl p-6 max-w-md w-full shadow-2xl`}
+                className={`${theme === "dark" ? "bg-gray-900" : "bg-white"
+                    } bg-opacity-90 backdrop-blur-md rounded-3xl p-6 max-w-md w-full shadow-2xl`}
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center mb-4">
@@ -308,13 +312,12 @@ const MemoryGame = ({ onClose, theme }) => {
                                 <motion.button
                                     key={level}
                                     onClick={() => setDifficulty(level)}
-                                    className={`py-2 px-4 rounded-xl ${
-                                        difficulty === level
-                                            ? "bg-teal-500 text-white"
-                                            : theme === "dark"
+                                    className={`py-2 px-4 rounded-xl ${difficulty === level
+                                        ? "bg-teal-500 text-white"
+                                        : theme === "dark"
                                             ? "bg-gray-800 text-gray-300"
                                             : "bg-gray-200 text-gray-700"
-                                    }`}
+                                        }`}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                 >
@@ -341,9 +344,8 @@ const MemoryGame = ({ onClose, theme }) => {
                             <div className={`p-2 rounded-xl ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
                                 <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Time</p>
                                 <p
-                                    className={`font-bold ${
-                                        timeLeft < 10 ? "text-red-500" : theme === "dark" ? "text-teal-400" : "text-teal-600"
-                                    }`}
+                                    className={`font-bold ${timeLeft < 10 ? "text-red-500" : theme === "dark" ? "text-teal-400" : "text-teal-600"
+                                        }`}
                                 >
                                     {timeLeft}s
                                 </p>
@@ -364,13 +366,12 @@ const MemoryGame = ({ onClose, theme }) => {
                                 {cards.map((card, index) => (
                                     <motion.div
                                         key={card.id}
-                                        className={`p-2 sm:p-4 cursor-pointer flex items-center justify-center text-2xl rounded-2xl ${
-                                            card.isFlipped || matched.includes(index)
-                                                ? "bg-teal-500"
-                                                : theme === "dark"
+                                        className={`p-2 sm:p-4 cursor-pointer flex items-center justify-center text-2xl rounded-2xl ${card.isFlipped || matched.includes(index)
+                                            ? "bg-teal-500"
+                                            : theme === "dark"
                                                 ? "bg-gray-800"
                                                 : "bg-gray-200"
-                                        }`}
+                                            }`}
                                         onClick={() => handleCardClick(index)}
                                         whileHover={!card.isFlipped && !matched.includes(index) ? { scale: 1.05 } : {}}
                                         whileTap={!card.isFlipped && !matched.includes(index) ? { scale: 0.95 } : {}}
@@ -378,8 +379,8 @@ const MemoryGame = ({ onClose, theme }) => {
                                             matched.includes(index)
                                                 ? { rotateY: [0, 180, 0], scale: [1, 1.1, 1] }
                                                 : card.isFlipped
-                                                ? { rotateY: 180 }
-                                                : { rotateY: 0 }
+                                                    ? { rotateY: 180 }
+                                                    : { rotateY: 0 }
                                         }
                                     >
                                         {card.isFlipped || matched.includes(index) ? card.emoji : "?"}
@@ -434,11 +435,10 @@ const MemoryGame = ({ onClose, theme }) => {
                             </motion.button>
                             <motion.button
                                 onClick={onClose}
-                                className={`flex-1 py-2 rounded-2xl transition-all ${
-                                    theme === "dark"
-                                        ? "bg-gray-800 text-white hover:bg-gray-700"
-                                        : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                                }`}
+                                className={`flex-1 py-2 rounded-2xl transition-all ${theme === "dark"
+                                    ? "bg-gray-800 text-white hover:bg-gray-700"
+                                    : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                                    }`}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
@@ -1156,10 +1156,83 @@ When I'm not coding, you can find me contributing to open-source projects, writi
         { id: "skills", label: "Skills", icon: <FaTools /> },
         { id: "experience", label: "Experience", icon: <FaBuilding /> },
         { id: "projects", label: "Projects", icon: <FaRocket /> },
+        { id: "certifications", label: "Certifications", icon: <FaCertificate /> },
         { id: "contact", label: "Contact", icon: <FaEnvelope /> },
         { id: "timepass", label: "Timepass", icon: <FaGamepad /> },
     ];
 
+    const certifications = [
+        {
+            title: "Java (Basic)",
+            issuer: "HackerRank",
+            icon: <FaJava className="text-red-500" />,
+        },
+        {
+            title: "Problem Solving (Basic)",
+            issuer: "HackerRank",
+            icon: <FaCode className="text-teal-500" />,
+        },
+        {
+            title: "JavaScript",
+            issuer: "HackerRank",
+            icon: <IoLogoJavascript className="text-yellow-500" />,
+        },
+        {
+            title: "SQL",
+            issuer: "HackerRank",
+            icon: <SiMysql className="text-blue-700" />,
+        },
+        {
+            title: "RPA: Robotic Process Automation Using UiPath",
+            issuer: "UiPath",
+            icon: <FaTools className="text-indigo-500" />,
+        },
+        {
+            title: "Certified Flutter Developer",
+            issuer: "thingQbator",
+            icon: <SiFlutter className="text-blue-400" />,
+        },
+        {
+            title: "App with Flutter",
+            issuer: "The Net Ninja",
+            icon: <SiFlutter className="text-blue-400" />,
+        },
+        {
+            title: "Google Flutter & Dart",
+            issuer: "The Digital Adda",
+            icon: <SiFlutter className="text-blue-400" />,
+        },
+        {
+            title: "Foundation of Cyber Security",
+            issuer: "Coursera",
+            icon: <FaShieldAlt className="text-purple-500" />, // Note: FaShieldAlt requires react-icons/fa
+        },
+        {
+            title: "Play it Safe: Manage Security Risk",
+            issuer: "Coursera",
+            icon: <FaShieldAlt className="text-purple-500" />,
+        },
+        {
+            title: "Connect & Protect: Networks & Network Security",
+            issuer: "Coursera",
+            icon: <FaNetworkWired className="text-blue-500" />, // Note: FaNetworkWired requires react-icons/fa
+        },
+        {
+            title: "Machine Learning",
+            issuer: "NIELIT",
+            icon: <FaBrain className="text-pink-500" />, // Note: FaBrain requires react-icons/fa
+        },
+        {
+            title: "Python for Data Science",
+            issuer: "NPTEL",
+            icon: <SiPython className="text-blue-500" />,
+        },
+        {
+            title: "Data Analytics and Visualization",
+            issuer: "Accenture North America",
+            icon: <FaChartBar className="text-green-500" />, // Note: FaChartBar requires react-icons/fa
+        },
+    ];
     // Project Filter Options
     const filterOptions = [
         { value: "all", label: "All" },
@@ -1201,11 +1274,10 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                             <motion.button
                                 key={item.id}
                                 onClick={() => (item.id === "timepass" ? setShowGame(true) : setActiveTab(item.id))}
-                                className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all ${
-                                    activeTab === item.id
-                                        ? "bg-teal-500 text-white shadow-lg"
-                                        : "text-gray-300 hover:bg-gray-700 hover:text-white"
-                                }`}
+                                className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all ${activeTab === item.id
+                                    ? "bg-teal-500 text-white shadow-lg"
+                                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                                    }`}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
@@ -1723,6 +1795,36 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                         <p className="text-gray-400">Try adjusting your search or filter.</p>
                                     </div>
                                 )}
+                            </motion.section>
+                        )}
+
+                        {/* Certifications Section */}
+                        {activeTab === "certifications" && (
+                            <motion.section
+                                key="certifications"
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -50 }}
+                                transition={{ duration: 0.5 }}
+                                className="py-12"
+                            >
+                                <h2 className="text-3xl font-bold text-center mb-8 text-teal-400">Certifications</h2>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {certifications.map((cert, index) => (
+                                        <motion.div
+                                            key={index}
+                                            className="bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-3xl p-6 shadow-xl"
+                                            whileHover={{ y: -10, rotateX: 5 }}
+                                            transition={{ duration: 0.3 }}
+                                        >
+                                            <div className="flex items-center gap-3 mb-3">
+                                                {cert.icon}
+                                                <h3 className="text-lg font-semibold text-white">{cert.title}</h3>
+                                            </div>
+                                            <p className="text-gray-300 text-sm mb-2">{cert.issuer}</p>
+                                        </motion.div>
+                                    ))}
+                                </div>
                             </motion.section>
                         )}
 
