@@ -657,6 +657,21 @@ When I'm not coding, you can find me contributing to open-source projects, writi
     // Projects Data
     const projects = [
         {
+            "name": "MsgDetect",
+            "tech": "React, TypeScript, Vite, Tailwind CSS, Python, FastAPI, Uvicorn, Pillow, NumPy, Axios, Pydantic, Sentry",
+            "description": "A web application for detecting hidden messages in image, audio, and text files. Users can upload files through an intuitive React frontend, and the FastAPI backend analyzes them for steganography using techniques like LSB analysis and entropy scoring, providing detailed results and metadata.",
+            "github": "https://github.com/leefarhadaman/steganography_detector_frontend",
+            "demo": "https://msgdetect.netlify.app/",
+            "features": [
+              "Drag-and-drop file upload for PNG, JPEG, WAV, MP3, and TXT files",
+              "Steganography detection with LSB, entropy, and correlation analysis",
+              "Detailed detection results with confidence scores and metrics",
+              "Responsive UI with loading animations and clear results option",
+              "File metadata extraction including size and format",
+              "Secure FastAPI backend with CORS and error handling"
+            ]
+          },  
+        {
             "name": "SmallFancy",
             "tech": "MERN, React",
             "description": "A full-featured eCommerce web application built with the MERN stack. It offers seamless product browsing, user authentication, cart management, and secure checkout functionality.",
