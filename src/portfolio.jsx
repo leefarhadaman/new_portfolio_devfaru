@@ -657,20 +657,35 @@ When I'm not coding, you can find me contributing to open-source projects, writi
     // Projects Data
     const projects = [
         {
+            "name": "ShopHub",
+            "tech": "React.js, Tailwind CSS, Vite",
+            "description": "A modern and responsive eCommerce platform for seamless online shopping, featuring product browsing, cart management, and a clean UI.",
+            "github": "https://github.com/leefarhadaman/new_eccomerce",
+            "demo": "https://newshophub.netlify.app",
+            "features": [
+                "Product listing with category filtering and search",
+                "Add to cart and cart quantity management",
+                "Responsive UI for mobile and desktop",
+                "Wishlist functionality for saving products",
+                "Fast performance with Vite build tool",
+                "Mock backend for product data"
+            ]
+        },
+        {
             "name": "MsgDetect",
             "tech": "React, TypeScript, Vite, Tailwind CSS, Python, FastAPI, Uvicorn, Pillow, NumPy, Axios, Pydantic, Sentry",
             "description": "A web application for detecting hidden messages in image, audio, and text files. Users can upload files through an intuitive React frontend, and the FastAPI backend analyzes them for steganography using techniques like LSB analysis and entropy scoring, providing detailed results and metadata.",
             "github": "https://github.com/leefarhadaman/steganography_detector_frontend",
             "demo": "https://msgdetect.netlify.app/",
             "features": [
-              "Drag-and-drop file upload for PNG, JPEG, WAV, MP3, and TXT files",
-              "Steganography detection with LSB, entropy, and correlation analysis",
-              "Detailed detection results with confidence scores and metrics",
-              "Responsive UI with loading animations and clear results option",
-              "File metadata extraction including size and format",
-              "Secure FastAPI backend with CORS and error handling"
+                "Drag-and-drop file upload for PNG, JPEG, WAV, MP3, and TXT files",
+                "Steganography detection with LSB, entropy, and correlation analysis",
+                "Detailed detection results with confidence scores and metrics",
+                "Responsive UI with loading animations and clear results option",
+                "File metadata extraction including size and format",
+                "Secure FastAPI backend with CORS and error handling"
             ]
-          },  
+        },
         {
             "name": "SmallFancy",
             "tech": "MERN, React",
@@ -678,13 +693,13 @@ When I'm not coding, you can find me contributing to open-source projects, writi
             "github": "https://github.com/leefarhadaman/ecco_merce",
             "demo": "https://smallfancy.netlify.app",
             "features": [
-              "User registration and authentication",
-              "Product listing with search and filters",
-              "Shopping cart and checkout process",
-              "Admin dashboard for product and order management",
-              "Order history and payment integration"
+                "User registration and authentication",
+                "Product listing with search and filters",
+                "Shopping cart and checkout process",
+                "Admin dashboard for product and order management",
+                "Order history and payment integration"
             ]
-          },          
+        },
         {
             name: "Simple_FaceRecognizeApp",
             tech: "Python",
