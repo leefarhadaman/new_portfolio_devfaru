@@ -657,6 +657,39 @@ When I'm not coding, you can find me contributing to open-source projects, writi
     // Projects Data
     const projects = [
         {
+            "name": "VideoStreamingHub",
+            "tech": "FastAPI, SQLAlchemy, Bootstrap 5, JavaScript, Jinja2",
+            "description": "A modern and feature-rich video streaming platform where users can upload, share, and interact with videos in a YouTube-like environment.",
+            "github": "https://github.com/leefarhadaman/videostreaminghub.git",
+            "demo": "*",
+            "features": [
+                "User authentication with JWT tokens for secure login and registration",
+                "Upload, view, edit, and delete videos with automatic thumbnail generation using FFmpeg",
+                "Like videos, add comments, and maintain watch history",
+                "Responsive UI using Bootstrap 5 and drag-and-drop video upload",
+                "User profiles with customizable profile pictures",
+                "Server-side rendering with Jinja2 templates and dynamic frontend using vanilla JavaScript",
+                "File-based storage system with support for thumbnails, profile pictures, and videos",
+                "Comprehensive error handling and feedback throughout the platform",
+                "Recent updates include Python 3.13 compatibility, improved FFmpeg handling, and enhanced UI"
+            ]
+        },
+        {
+            "name": "EliteFitness",
+            "tech": "HTML5, CSS3, JavaScript (Vanilla JS), Tailwind CSS, LottieFiles",
+            "description": "A fully responsive landing page for a freelance personal trainer, showcasing services, testimonials, and a contact form with modern UI and animations.",
+            "github": "https://github.com/leefarhadaman/personal_training",
+            "demo": "https://personaltrainerdemo.netlify.app",
+            "features": [
+                "Responsive design for all screen sizes using Flexbox and CSS Grid",
+                "Smooth scroll navigation with sticky navbar",
+                "Scroll-triggered animations for engaging user experience",
+                "Testimonial slider to showcase client feedback",
+                "Validated contact form for inquiries",
+                "Modern UI/UX with clean typography and spacing"
+            ]
+        },
+        {
             "name": "ShopHub",
             "tech": "React.js, Tailwind CSS, Vite",
             "description": "A modern and responsive eCommerce platform for seamless online shopping, featuring product browsing, cart management, and a clean UI.",
