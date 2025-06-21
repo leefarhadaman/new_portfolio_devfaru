@@ -657,6 +657,58 @@ When I'm not coding, you can find me contributing to open-source projects, writi
     // Projects Data
     const projects = [
         {
+            "name": "SecretVault",
+            "tech": "Node.js, Express, Redis, UUID, Helmet, Express-rate-limit, Dotenv, Crypto",
+            "description": "SecretVault is a secure, Node.js-based API for sharing sensitive data (e.g., passwords, API keys, tokens) via one-time-use links. Links self-destruct after a single access or a specified expiration time (e.g., 10 minutes, 1 hour), ensuring data security. Ideal for developers needing a reliable way to share secrets securely.",
+            "github": "https://github.com/leefarhadaman/SecretVault",
+            "demo": "*",
+            "features": [
+                "One-Time Access: Secrets are accessible only once via a unique link, then deleted",
+                "Configurable Expiration: Set custom TTL (e.g., 10 minutes, 1 hour) for automatic secret deletion using Redis",
+                "Secure Encryption: AES-256-CBC encryption for all stored secrets via Node.js Crypto",
+                "Rate-Limiting: Express-rate-limit prevents brute-force attacks",
+                "Security Headers: Helmet enhances HTTP security",
+                "Unique IDs: UUID generates secure, unique secret identifiers",
+                "Environment Configuration: Dotenv manages secure environment variables",
+                "RESTful API: Simple and intuitive endpoints for secret creation and retrieval"
+            ]
+        },
+         {
+            "name": "DisasterResponseCoordinationPlatform",
+            "tech": "React, TypeScript, Tailwind CSS, Framer Motion, Node.js, Express, Socket.IO, Pino, Cheerio, Google Gemini API, Mapbox, ",
+            "description": "A real-time MERN stack application for disaster management and resource coordination. This platform aggregates data from multiple sources to aid emergency response teams in managing disasters effectively.",
+            "github": "https://github.com/leefarhadaman/DisasterResponseCoordinationPlatform",
+            "demo": "*",
+            "features": [
+                "Real-time Disaster Management: Create, update, and monitor disasters with live updates via WebSocket",
+                "Resource Coordination: Track and manage emergency resources with geospatial queries",
+                "Social Media Integration: Monitor social media feeds for disaster-related posts",
+                "AI-Powered Location Extraction: Use Google Gemini API to extract locations from text",
+                "Geospatial Queries: Find nearby resources using PostGIS",
+                "Caching System: Efficient caching with Supabase for external API calls",
+                "Official Updates Scraping: Web scraping for government and NGO updates",
+                "Image Verification: AI-powered image verification for social media posts",
+
+            ]
+        },
+        {
+            "name": "VideoMerger",
+            "tech": "React, TypeScript, Tailwind CSS, Framer Motion, Node.js, Express, FFmpeg",
+            "description": "A powerful web application that lets you merge multiple videos with background music seamlessly. Built with modern web technologies and optimized for performance.",
+            "github": "https://github.com/leefarhadaman/video_merger",
+            "demo": "*",
+            "features": [
+                "FFmpeg integration for professional-grade video processing",
+                "Multiple codec support (H.264, HEVC, VP8, VP9)",
+                "Merge up to 20 videos simultaneously",
+                "Add background music",
+                "Real-time progress tracking",
+                "High-quality output",
+                "Modern, responsive UI",
+                "Video previews with thumbnails",
+            ]
+        },
+        {
             "name": "VideoStreamingHub",
             "tech": "FastAPI, SQLAlchemy, Bootstrap 5, JavaScript, Jinja2",
             "description": "A modern and feature-rich video streaming platform where users can upload, share, and interact with videos in a YouTube-like environment.",
