@@ -567,6 +567,13 @@ Beyond coding, I thrive on solving complex problems, collaborating with teams, a
 When I'm not coding, you can find me contributing to open-source projects, writing tech blogs, or exploring the outdoors through hiking. I'm excited about opportunities to build innovative solutions and grow as a developer in a dynamic, forward-thinking environment.`,
         education: [
             {
+                degree: "Masters of Computer Applications (MCA)",
+                institution: "Indira Gandhi National Open University",
+                graduationYear: 2027,
+                gpa: "Pursuing",
+                icon: <FaGraduationCap className="text-teal-500" />,
+            },,
+            {
                 degree: "Bachelor of Computer Applications (BCA)",
                 institution: "Assam Don Bosco University",
                 graduationYear: 2024,
@@ -596,7 +603,7 @@ When I'm not coding, you can find me contributing to open-source projects, writi
             title: "Full Stack Developer",
             company: "Zero9 Communication Pvt Ltd",
             location: "Guwahati, India",
-            duration: "June 2024 – Present",
+            duration: "June 2024 – July 2025",
             description:
                 "Leading development of scalable web applications using React, Node.js, and MongoDB. Implemented RESTful APIs and responsive interfaces for multiple client projects.",
             responsibilities: [
