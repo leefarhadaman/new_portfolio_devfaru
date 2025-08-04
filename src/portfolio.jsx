@@ -1647,38 +1647,47 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                                                         description:
                                                             "Completed BCA from Assam Don Bosco University and joined Zero9 as a Full Stack Developer, leading web projects.",
                                                         icon: <FaUserGraduate className="text-teal-400" />,
+                                                        isMajor: false,
+                                                    },
+                                                    {
+                                                        year: 2025,
+                                                        event: "Joined XopunTech",
+                                                        description:
+                                                            "Started my journey as a Software Engineer at XopunTech (India) Pvt. Ltd., contributing to scalable software solutions and collaborating on impactful projects.",
+                                                        icon: <FaBriefcase className="text-teal-500" />, // Or another relevant icon
                                                         isMajor: true,
                                                     },
-                                                ].map((milestone, index) => (
-                                                    <motion.div
-                                                        key={index}
-                                                        className="relative mb-8"
-                                                        initial={{ opacity: 0, y: 20 }}
-                                                        animate={{ opacity: 1, y: 0 }}
-                                                        transition={{ duration: 0.5, delay: index * 0.3 }}
-                                                    >
-                                                        <div className="absolute left-4 top-4 w-4 h-4 bg-teal-500 rounded-full border-2 border-gray-800 shadow-lg" />
+                                                ]
+                                                    .map((milestone, index) => (
                                                         <motion.div
-                                                            className="ml-12 bg-gray-700 bg-opacity-90 backdrop-blur-md rounded-2xl p-4 shadow-lg hover:shadow-teal-500/50 transition-shadow"
-                                                            whileHover={{ y: -5, scale: 1.02 }}
-                                                            transition={{ duration: 0.2 }}
+                                                            key={index}
+                                                            className="relative mb-8"
+                                                            initial={{ opacity: 0, y: 20 }}
+                                                            animate={{ opacity: 1, y: 0 }}
+                                                            transition={{ duration: 0.5, delay: index * 0.3 }}
                                                         >
-                                                            <div className="flex items-center gap-3 mb-2">
-                                                                <div className={`text-2xl ${milestone.isMajor ? "text-3xl" : ""}`}>
-                                                                    {milestone.icon}
+                                                            <div className="absolute left-4 top-4 w-4 h-4 bg-teal-500 rounded-full border-2 border-gray-800 shadow-lg" />
+                                                            <motion.div
+                                                                className="ml-12 bg-gray-700 bg-opacity-90 backdrop-blur-md rounded-2xl p-4 shadow-lg hover:shadow-teal-500/50 transition-shadow"
+                                                                whileHover={{ y: -5, scale: 1.02 }}
+                                                                transition={{ duration: 0.2 }}
+                                                            >
+                                                                <div className="flex items-center gap-3 mb-2">
+                                                                    <div className={`text-2xl ${milestone.isMajor ? "text-3xl" : ""}`}>
+                                                                        {milestone.icon}
+                                                                    </div>
+                                                                    <div>
+                                                                        <h3 className="text-lg font-semibold text-white">
+                                                                            {milestone.event}
+                                                                            {milestone.isMajor && <FaStar className="inline ml-2 text-yellow-400" />}
+                                                                        </h3>
+                                                                        <p className="text-sm text-teal-400">{milestone.year}</p>
+                                                                    </div>
                                                                 </div>
-                                                                <div>
-                                                                    <h3 className="text-lg font-semibold text-white">
-                                                                        {milestone.event}
-                                                                        {milestone.isMajor && <FaStar className="inline ml-2 text-yellow-400" />}
-                                                                    </h3>
-                                                                    <p className="text-sm text-teal-400">{milestone.year}</p>
-                                                                </div>
-                                                            </div>
-                                                            <p className="text-gray-300 text-sm">{milestone.description}</p>
+                                                                <p className="text-gray-300 text-sm">{milestone.description}</p>
+                                                            </motion.div>
                                                         </motion.div>
-                                                    </motion.div>
-                                                ))}
+                                                    ))}
                                             </div>
                                         </motion.div>
                                     </div>
