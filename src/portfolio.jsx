@@ -572,7 +572,7 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                 graduationYear: 2027,
                 gpa: "Pursuing",
                 icon: <FaGraduationCap className="text-teal-500" />,
-            },,
+            }, ,
             {
                 degree: "Bachelor of Computer Applications (BCA)",
                 institution: "Assam Don Bosco University",
@@ -599,6 +599,16 @@ When I'm not coding, you can find me contributing to open-source projects, writi
 
     // Work Experience Data
     const experience = [
+        {
+            title: "Software Engineer",
+            company: "XopunTech (India) Pvt. Ltd.",
+            location: "Guwahati, India",
+            duration: "August 2025 – Present",
+            description:
+                "Joined the engineering team to contribute to the development of scalable software solutions. Looking forward to collaborating on impactful projects and growing within a dynamic tech environment.",
+            responsibilities: [],
+            tech: [],
+        },
         {
             title: "Full Stack Developer",
             company: "Zero9 Communication Pvt Ltd",
@@ -680,7 +690,7 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                 "RESTful API: Simple and intuitive endpoints for secret creation and retrieval"
             ]
         },
-         {
+        {
             "name": "DisasterResponseCoordinationPlatform",
             "tech": "React, TypeScript, Tailwind CSS, Framer Motion, Node.js, Express, Socket.IO, Pino, Cheerio, Google Gemini API, Mapbox, ",
             "description": "A real-time MERN stack application for disaster management and resource coordination. This platform aggregates data from multiple sources to aid emergency response teams in managing disasters effectively.",
