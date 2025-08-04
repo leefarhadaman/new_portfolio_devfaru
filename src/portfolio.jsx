@@ -572,7 +572,7 @@ When I'm not coding, you can find me contributing to open-source projects, writi
                 graduationYear: 2027,
                 gpa: "Pursuing",
                 icon: <FaGraduationCap className="text-teal-500" />,
-            }, ,
+            },
             {
                 degree: "Bachelor of Computer Applications (BCA)",
                 institution: "Assam Don Bosco University",
